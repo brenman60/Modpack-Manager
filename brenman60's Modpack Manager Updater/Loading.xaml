@@ -1,0 +1,18 @@
+<Window x:Class="brenman60_s_Modpack_Manager.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:brenman60_s_Modpack_Manager"
+        xmlns:dwm="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        mc:Ignorable="d"
+        Title="Verifying Version" Height="80" Width="800"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        Background="#163319"
+        BorderThickness="0">
+
+    <Grid>
+        <ProgressBar x:Name="loadingProgressBar" Width="790" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF086118" Foreground="#FF118025" BorderBrush="#00BCBCBC" IsIndeterminate="True" Cursor="Wait"/>
+    </Grid>
+</Window>
