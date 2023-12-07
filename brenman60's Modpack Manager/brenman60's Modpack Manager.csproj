@@ -7,12 +7,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <BaseOutputPath>C:\Users\Brennan\source\repos\brenman60s Modpack Manager\Build</BaseOutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="images\" />
-    <Folder Include="fonts\" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

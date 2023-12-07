@@ -50,7 +50,7 @@ namespace brenman60_s_Modpack_Manager_Updater
             {
                 Arguments = "verified",
                 CreateNoWindow = false,
-                FileName = "brenman60's Modpack Manager.exe",
+                FileName = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager.exe"),
                 WindowStyle = ProcessWindowStyle.Normal,
             };
 
