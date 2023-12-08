@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:brenman60_s_Modpack_Manager"
         xmlns:dwm="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         mc:Ignorable="d"
-        Title="Verifying Version" Height="80" Width="800"
+        Title="Verifying" Height="80" Width="800"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         Background="#163319"
