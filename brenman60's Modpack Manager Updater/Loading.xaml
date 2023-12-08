@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:brenman60_s_Modpack_Manager"
         xmlns:dwm="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         mc:Ignorable="d"
-        Title="Verifying" Height="80" Width="800"
+        Title="Updater" Height="60" Width="600"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
-        Background="#163319"
-        BorderThickness="0">
+        Background="#FF424242">
 
     <Grid>
-        <ProgressBar x:Name="loadingProgressBar" Width="790" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FF086118" Foreground="#FF118025" BorderBrush="#00BCBCBC" IsIndeterminate="True" Cursor="Wait"/>
+        <TextBlock Text="{Binding Path=loadingStatus}" x:Name="progressText" Margin="2,0,2,28" FontFamily="Yu Gothic UI Semibold" FontWeight="Bold" Foreground="#FFCACACA"></TextBlock>
+        <ProgressBar x:Name="loadingProgressBar" Height="24" Width="596" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#FF565656" Foreground="#FF9A9A9A" BorderBrush="#00BCBCBC" Cursor="Wait" IsIndeterminate="True" Margin="0,16,0,0"/>
     </Grid>
 </Window>
