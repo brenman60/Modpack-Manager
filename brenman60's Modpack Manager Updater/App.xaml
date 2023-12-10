@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:brenman60_s_Modpack_Manager_Updater"
              StartupUri="Loading.xaml">
     <Application.Resources>
-
+        
     </Application.Resources>
 </Application>

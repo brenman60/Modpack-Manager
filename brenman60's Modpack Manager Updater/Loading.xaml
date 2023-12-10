@@ -4,13 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:brenman60_s_Modpack_Manager_Updater"
-        xmlns:dwm="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        xmlns:dwm="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+        xmlns:ModpackManager="clr-namespace:ModpackManager.Utils;assembly=ModpackManager"
         mc:Ignorable="d"
         Title="Updater" Height="60" Width="600" WindowState="Normal"
         WindowStyle="SingleBorderWindow"
         Background="#FF424242" Topmost="True" SizeToContent="Height">
+    <Window.DataContext>
+        <ModpackManager:TextData/>
+    </Window.DataContext>
     <Grid>
-        <TextBlock Text="{Binding Path=DisplayStatus}" x:Name="progressText" Margin="10,0,10,28" FontFamily="Yu Gothic UI Semibold" FontWeight="Bold" Foreground="#FFCACACA" RenderTransformOrigin="0.5,0" Panel.ZIndex="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"></TextBlock>
+        <TextBlock Text="{Binding Path=DisplayStatus}" x:Name="progressText" Margin="10,0,10,28" FontFamily="Yu Gothic UI Semibold" FontWeight="Bold" Foreground="#FFCACACA" RenderTransformOrigin="0.5,0" Panel.ZIndex="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextAlignment="Center">Verifying...</TextBlock>
         <ProgressBar x:Name="loadingProgressBar" Height="24" Width="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#FF565656" Foreground="#FF9A9A9A" BorderBrush="#00BCBCBC" Cursor="Wait" IsIndeterminate="True" Margin="10,0,10,4" RenderTransformOrigin="0.5,1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"></ProgressBar>
     </Grid>
 </Window>

@@ -8,7 +8,7 @@ namespace brenman60_s_Modpack_Manager_Updater
 {
     public partial class App : Application
     {
-        Loading loadingWindow;
+        //Loading loadingWindow;
         TextData data;
 
         FileManager fileManager = new FileManager();
@@ -16,10 +16,9 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            loadingWindow = new Loading();
+            //loadingWindow = new Loading();
             data = new TextData();
-
-            loadingWindow.DataContext = data;
+            //loadingWindow.DataContext = data;
 
             if (e.Args.Length != 0)
             {
@@ -155,7 +154,7 @@ namespace brenman60_s_Modpack_Manager_Updater
 
             Process.Start(bmmStartInfo);
 
-            //Environment.Exit(0);
+            Environment.Exit(0);
         }
     }
 }
