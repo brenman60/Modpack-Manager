@@ -2,23 +2,25 @@
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using ModpackManager.Utils;
 
 namespace brenman60_s_Modpack_Manager_Updater
 {
     public partial class App : Application
     {
-        public string loadingStatus { get; set; }
-
-        DependencyObject progressText = new DependencyObject();
+        Loading loadingWindow;
+        TextData data;
 
         FileManager fileManager = new FileManager();
         Downloader downloader = new Downloader();
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            loadingWindow = new Loading();
+            data = new TextData();
+
+            loadingWindow.DataContext = data;
+
             if (e.Args.Length != 0)
             {
                 if (e.Args[0] != "start")
@@ -46,7 +48,7 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         async void DownloadLatestProgram(string programPath)
         {
-            this.MainWindow.Title = "Downloading Newest Version";
+            //this.MainWindow.Title = "Downloading Newest Version";
 
             // Download program as zip
             string downloadedProgram = await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersion], ".zip");
@@ -60,8 +62,9 @@ namespace brenman60_s_Modpack_Manager_Updater
                 Directory.Delete(di.FullName, true);
 
             // Extract newly downloaded program zip into program directory
-            this.MainWindow.Title = "Extracting Zip";
+            //this.MainWindow.Title = "Extracting Zip";
             ZipFile.ExtractToDirectory(downloadedProgram, programPath, true);
+            File.Delete(downloadedProgram);
 
             ProcessStartInfo newProgramStartInfo = new ProcessStartInfo()
             {
@@ -85,7 +88,7 @@ namespace brenman60_s_Modpack_Manager_Updater
             string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText]));
             if (currentVersion.Trim() != latestVersion.Trim())
             {
-                this.MainWindow.Title = "Beginning Update";
+                //this.MainWindow.Title = "Beginning Update";
 
                 // If there is a new version available
                 void CopyDirectory(DirectoryInfo source, DirectoryInfo destination)
@@ -140,8 +143,7 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         private void StartMain()
         {
-            //this.MainWindow.Title = "Starting";
-            BindingOperations.GetBindingExpression(progressText, TextBox.TextProperty).UpdateTarget();
+            data.DisplayText = "Starting...";
 
             ProcessStartInfo bmmStartInfo = new ProcessStartInfo()
             {
@@ -153,7 +155,7 @@ namespace brenman60_s_Modpack_Manager_Updater
 
             Process.Start(bmmStartInfo);
 
-            Environment.Exit(0);
+            //Environment.Exit(0);
         }
     }
 }

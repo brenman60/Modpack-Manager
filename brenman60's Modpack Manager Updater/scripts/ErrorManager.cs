@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace brenman60_s_Modpack_Manager.scripts
+namespace brenman60_s_Modpack_Manager_Updater.scripts
 {
     public static class ErrorManager
     {

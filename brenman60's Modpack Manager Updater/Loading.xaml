@@ -1,18 +1,16 @@
-<Window x:Class="brenman60_s_Modpack_Manager.UpdateWindow"
+<Window x:Class="brenman60_s_Modpack_Manager_Updater.Loading"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:brenman60_s_Modpack_Manager"
+        xmlns:local="clr-namespace:brenman60_s_Modpack_Manager_Updater"
         xmlns:dwm="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         mc:Ignorable="d"
-        Title="Updater" Height="60" Width="600"
+        Title="Updater" Height="60" Width="600" WindowState="Normal"
         WindowStyle="SingleBorderWindow"
-        ResizeMode="NoResize"
-        Background="#FF424242">
-
+        Background="#FF424242" Topmost="True" SizeToContent="Height">
     <Grid>
-        <TextBlock Text="{Binding Path=loadingStatus}" x:Name="progressText" Margin="2,0,2,28" FontFamily="Yu Gothic UI Semibold" FontWeight="Bold" Foreground="#FFCACACA"></TextBlock>
-        <ProgressBar x:Name="loadingProgressBar" Height="24" Width="596" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#FF565656" Foreground="#FF9A9A9A" BorderBrush="#00BCBCBC" Cursor="Wait" IsIndeterminate="True" Margin="0,16,0,0"/>
+        <TextBlock Text="{Binding Path=DisplayStatus}" x:Name="progressText" Margin="10,0,10,28" FontFamily="Yu Gothic UI Semibold" FontWeight="Bold" Foreground="#FFCACACA" RenderTransformOrigin="0.5,0" Panel.ZIndex="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"></TextBlock>
+        <ProgressBar x:Name="loadingProgressBar" Height="24" Width="Auto" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#FF565656" Foreground="#FF9A9A9A" BorderBrush="#00BCBCBC" Cursor="Wait" IsIndeterminate="True" Margin="10,0,10,4" RenderTransformOrigin="0.5,1" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Bottom" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden"></ProgressBar>
     </Grid>
 </Window>
