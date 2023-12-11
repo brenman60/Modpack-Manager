@@ -10,18 +10,28 @@ namespace brenman60_s_Modpack_Manager
         {
             if (e.Args.Length == 0)
             {
-                // Start the updater and close this application
-                string updaterPath = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager Updater.exe");
-                ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
+                bool startUpdater = true;
+
+#if DEBUG
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("DEBUG: Start Updater?", "You're in debug", System.Windows.MessageBoxButton.YesNo);
+                startUpdater = messageBoxResult == MessageBoxResult.Yes;
+#endif
+
+                if (startUpdater)
                 {
-                    CreateNoWindow = false,
-                    FileName = updaterPath,
-                    WindowStyle = ProcessWindowStyle.Normal,
-                };
+                    // Start the updater and close this application
+                    string updaterPath = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager Updater.exe");
+                    ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
+                    {
+                        CreateNoWindow = false,
+                        FileName = updaterPath,
+                        WindowStyle = ProcessWindowStyle.Normal,
+                    };
 
-                Process.Start(updaterStartInfo);
+                    Process.Start(updaterStartInfo);
 
-                Environment.Exit(0);
+                    Environment.Exit(0);
+                }
             }
 
             base.OnStartup(e);
