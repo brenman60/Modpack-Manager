@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:brenman60_s_Modpack_Manager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000"
+        Title="MainWindow" Height="600" Width="1050"
         MinHeight="600"
-        MinWidth="1000" SizeToContent="Width">
+        MinWidth="1050" SizeToContent="Width">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,19 +20,37 @@
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF4A4A4A"/>
             <GradientStop Color="#FF424242" Offset="0.23"/>
+            <GradientStop Color="#FF4A4A4A" Offset="1"/>
+            <GradientStop Color="#FF424242" Offset="0.847"/>
         </LinearGradientBrush>
     </Window.Background>
 
-    <Grid Background="Transparent" >
-        <StackPanel x:Name="tabList" Margin="0,0,773,0" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Left">
-            <TextBlock x:Name="titleText" Height="Auto" Padding="5, 5, 5, 5" FontFamily="Yu Gothic UI Semibold" FontSize="25" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager"/>
+    <Grid>
+        <StackPanel x:Name="tabList" Margin="0,0,773,0" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Left" MaxWidth="350">
+            <TextBlock x:Name="titleText" Height="Auto" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager" Margin="15,5,15,2"/>
             <Rectangle x:Name="divider1" Height="10" Fill="#FF2F2F2F" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto"/>
+            
             <Grid x:Name="tabLauncher" RenderTransformOrigin="0,0.5" Width="Auto"> <!-- Launcher Button Start -->
                 <Rectangle Fill="#FF333333" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
                 <Button Height="40" Style="{StaticResource basicButton}" Margin="2,5,2,5" Panel.ZIndex="0">
                     <TextBlock Text="Launcher" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
                 </Button>
             </Grid> <!-- Launcher Button End -->
+
+            <Grid x:Name="tabModpacks" RenderTransformOrigin="0,0.5" Width="Auto"> <!-- Modpack Button Start -->
+                <Rectangle Fill="#FF333333" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
+                <Button Height="40" Style="{StaticResource basicButton}" Margin="2,5,2,5" Panel.ZIndex="0">
+                    <TextBlock Text="Modpacks" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                </Button>
+            </Grid> <!-- Modpack Button End -->
+
+            <Grid x:Name="tabModSettings" RenderTransformOrigin="0,0.5" Width="Auto"> <!-- Mod Settings Button Start -->
+                <Rectangle Fill="#FF333333" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
+                <Button Height="40" Style="{StaticResource basicButton}" Margin="2,5,2,5" Panel.ZIndex="0">
+                    <TextBlock Text="Mod Settings" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                </Button>
+            </Grid> <!-- Mod Settings Button End -->
+
         </StackPanel>
     </Grid>
 </Window>

@@ -87,41 +87,48 @@ namespace brenman60_s_Modpack_Manager_Updater
             string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText]));
             if (currentVersion.Trim() != latestVersion.Trim())
             {
-                //this.MainWindow.Title = "Beginning Update";
-
-                // If there is a new version available
-                void CopyDirectory(DirectoryInfo source, DirectoryInfo destination)
+                // Program really doesn't techincally need to be up to date at all times, so it can be a choice
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Update now?", "A new version is available", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    if (!destination.Exists)
-                        destination.Create();
+                    //this.MainWindow.Title = "Beginning Update";
 
-                    FileInfo[] files = source.GetFiles();
-                    foreach (FileInfo file in files)
-                        file.CopyTo(Path.Combine(destination.FullName, file.Name));
-
-                    DirectoryInfo[] dirs = source.GetDirectories();
-                    foreach (DirectoryInfo dir in dirs)
+                    // If there is a new version available
+                    void CopyDirectory(DirectoryInfo source, DirectoryInfo destination)
                     {
-                        string destinationDir = Path.Combine(destination.FullName, dir.Name);
-                        CopyDirectory(dir, new DirectoryInfo(destinationDir));
+                        if (!destination.Exists)
+                            destination.Create();
+
+                        FileInfo[] files = source.GetFiles();
+                        foreach (FileInfo file in files)
+                            file.CopyTo(Path.Combine(destination.FullName, file.Name));
+
+                        DirectoryInfo[] dirs = source.GetDirectories();
+                        foreach (DirectoryInfo dir in dirs)
+                        {
+                            string destinationDir = Path.Combine(destination.FullName, dir.Name);
+                            CopyDirectory(dir, new DirectoryInfo(destinationDir));
+                        }
                     }
+
+                    DirectoryInfo newFolderInfo = Directory.CreateTempSubdirectory();
+                    DirectoryInfo current = new DirectoryInfo(Directory.GetCurrentDirectory());
+                    CopyDirectory(current, newFolderInfo);
+
+                    ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
+                    {
+                        Arguments = current.FullName,
+                        CreateNoWindow = false,
+                        FileName = Path.Combine(newFolderInfo.FullName, Process.GetCurrentProcess().MainModule.ModuleName),
+                        WindowStyle = ProcessWindowStyle.Normal,
+                    };
+
+                    Process.Start(updaterStartInfo);
+
+                    Environment.Exit(0);
                 }
-
-                DirectoryInfo newFolderInfo = Directory.CreateTempSubdirectory();
-                DirectoryInfo current = new DirectoryInfo(Directory.GetCurrentDirectory());
-                CopyDirectory(current, newFolderInfo);
-
-                ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
-                {
-                    Arguments = current.FullName,
-                    CreateNoWindow = false,
-                    FileName = Path.Combine(newFolderInfo.FullName, Process.GetCurrentProcess().MainModule.ModuleName),
-                    WindowStyle = ProcessWindowStyle.Normal,
-                };
-
-                Process.Start(updaterStartInfo);
-
-                Environment.Exit(0);
+                else
+                    StartMain();
             }
             else
             {
