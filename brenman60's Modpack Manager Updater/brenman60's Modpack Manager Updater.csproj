@@ -21,17 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Loading.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Include="Loading.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 
   <ItemGroup>
