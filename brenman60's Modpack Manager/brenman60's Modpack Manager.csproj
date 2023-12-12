@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <BaseOutputPath>C:\Users\Brennan\source\repos\brenman60s Modpack Manager\Build</BaseOutputPath>
+    <BaseOutputPath>..\brenman60s Modpack Manager\Build</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

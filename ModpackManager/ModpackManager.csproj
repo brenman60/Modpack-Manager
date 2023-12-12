@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
-	<BaseOutputPath>C:\Users\Brennan\source\repos\brenman60s Modpack Manager\Build</BaseOutputPath>
+	<BaseOutputPath>..\brenman60s Modpack Manager\Build</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>

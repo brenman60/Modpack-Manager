@@ -13,7 +13,7 @@ namespace brenman60_s_Modpack_Manager
                 bool startUpdater = true;
 
 #if DEBUG
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("DEBUG: Start Updater?", "You're in debug", System.Windows.MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Start Updater?", "You're in debug", System.Windows.MessageBoxButton.YesNo);
                 startUpdater = messageBoxResult == MessageBoxResult.Yes;
 #endif
 
