@@ -5,4 +5,17 @@
     <SolidColorBrush x:Key="hoverColor" Color="#FF545454"/>
     <SolidColorBrush x:Key="selectedColor" Color="#FF464646"/>
 
+    <LinearGradientBrush x:Key="tabBaseColor">
+        <GradientStop Color="#FF616161" Offset="1"/>
+        <GradientStop Color="#FF545454" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="tabHoverColor">
+        <GradientStop Color="#FF616161" Offset="1"/>
+        <GradientStop Color="#FF545454" Offset="0.5"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="tabSelectedColor">
+        <GradientStop Color="#FF616161" Offset="1"/>
+        <GradientStop Color="#FF545454" Offset="0.75"/>
+    </LinearGradientBrush>
+
 </ResourceDictionary>

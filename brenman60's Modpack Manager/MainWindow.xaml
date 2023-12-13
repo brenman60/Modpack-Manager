@@ -7,23 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1050"
         MinHeight="600"
-        MinWidth="1050" SizeToContent="Width">
+        MinWidth="1050" SizeToContent="Width"
+        Background="#FF616161">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/UniversalColors.xaml"/>
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="/Styles/TextStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF6B6B6B" Offset="1"/>
-            <GradientStop Color="#FF616161" Offset="0.599"/>
-            <GradientStop Color="#FF6B6B6B"/>
-            <GradientStop Color="#FF616161" Offset="0.339"/>
-        </LinearGradientBrush>
-    </Window.Background>
 
     <Grid>
         <StackPanel x:Name="tabList" Margin="0,0,773,0" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Left" MaxWidth="350">
@@ -33,7 +27,7 @@
             <Grid x:Name="tabLauncher" RenderTransformOrigin="0,0.5" Width="Auto">
                 <!-- Launcher Button Start -->
                 <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button Height="40" Style="{StaticResource basicButton}" Margin="2,5,2,5" Panel.ZIndex="0">
+                <Button x:Name="launcherButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
                     <TextBlock Text="Launcher" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
                 </Button>
             </Grid>
@@ -42,7 +36,7 @@
             <Grid x:Name="tabModpacks" RenderTransformOrigin="0,0.5" Width="Auto">
                 <!-- Modpack Button Start -->
                 <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button Height="40" Style="{StaticResource basicButton}" Margin="2,5,2,5" Panel.ZIndex="0">
+                <Button x:Name="modpacksButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
                     <TextBlock Text="Modpacks" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
                 </Button>
             </Grid>
@@ -51,7 +45,7 @@
             <Grid x:Name="tabModSettings" RenderTransformOrigin="0,0.5" Width="Auto">
                 <!-- Mod Settings Button Start -->
                 <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button Height="40" Style="{StaticResource basicButton}" Margin="2,5,2,5" Panel.ZIndex="0">
+                <Button x:Name="modSettingsButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
                     <TextBlock Text="Mod Settings" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
                 </Button>
             </Grid>
@@ -73,8 +67,8 @@
             </Grid>
 
             <Grid x:Name="modSettingsContent" Visibility="Collapsed">
-                <Button x:Name="modSettingsButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
-                    <TextBlock x:Name="modSettingsButtonText" Text="Launch dafsfdsfsdf Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+                <Button x:Name="modSettingsButton_" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
+                    <TextBlock x:Name="modSettingsButtonText" Text="Launch dafsfdsfsdf" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
                 </Button>
             </Grid>
         </Grid>

@@ -30,6 +30,31 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="tabButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource tabBaseColor}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource tabHoverColor}"/>
+            </Trigger>
+
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource tabSelectedColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="playButton" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource hoverColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
