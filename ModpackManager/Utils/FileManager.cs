@@ -25,7 +25,7 @@ namespace ModpackManager.Utils
         /// <returns>The content of the file</returns>
         public string? ReadFile(string filePath)
         {
-            if (!File.Exists(filePath))
+            if (!File.Exists(filePath) || filePath == null)
                 return null;
 
             string fileContent = string.Empty;

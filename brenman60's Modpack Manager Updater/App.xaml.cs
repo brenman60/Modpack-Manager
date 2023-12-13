@@ -8,7 +8,6 @@ namespace brenman60_s_Modpack_Manager_Updater
 {
     public partial class App : Application
     {
-        //Loading loadingWindow;
         TextData data;
 
         FileManager fileManager = new FileManager();
@@ -16,9 +15,7 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //loadingWindow = new Loading();
             data = new TextData();
-            //loadingWindow.DataContext = data;
 
             if (e.Args.Length != 0)
             {
@@ -85,6 +82,12 @@ namespace brenman60_s_Modpack_Manager_Updater
             // If there is an update, copy this exe into a sub folder, stop this current program, and start the copied version with args to make this if statement true
             string? currentVersion = fileManager.ReadFile(FileManager.versionFilePath);
             string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText]));
+            if (latestVersion == null)
+            {
+                StartMain();
+                return;
+            }
+
             if (currentVersion.Trim() != latestVersion.Trim())
             {
                 // Program really doesn't techincally need to be up to date at all times, so it can be a choice

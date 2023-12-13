@@ -58,5 +58,25 @@
             <!-- Mod Settings Button End -->
 
         </StackPanel>
+
+        <Grid x:Name="tabContent" Margin="222,0,0,0" Width="Auto" RenderTransformOrigin="1,0.5">
+            <Grid x:Name="launcherContent" Visibility="Visible">
+                <Button x:Name="launchButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
+                    <TextBlock x:Name="launchButtonText" Text="Launch Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+                </Button>
+            </Grid>
+
+            <Grid x:Name="modpacksContent" Visibility="Collapsed">
+                <Button x:Name="modpackButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
+                    <TextBlock x:Name="modpackButtonText" Text="Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+                </Button>
+            </Grid>
+
+            <Grid x:Name="modSettingsContent" Visibility="Collapsed">
+                <Button x:Name="modSettingsButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
+                    <TextBlock x:Name="modSettingsButtonText" Text="Launch dafsfdsfsdf Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
