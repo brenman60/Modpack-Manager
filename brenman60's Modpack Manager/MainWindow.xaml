@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="/Styles/UniversalColors.xaml"/>
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="/Styles/TextStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/RectangleStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -22,16 +23,16 @@
     <Grid>
         <StackPanel x:Name="tabList" Margin="0,0,773,0" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Left" MaxWidth="350">
             <TextBlock x:Name="titleText" Height="Auto" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager" Margin="15,5,15,2"/>
-            <Rectangle x:Name="divider1" Height="10" Fill="#FF464646" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto"/>
+            <Rectangle x:Name="divider1" Height="10" Style="{StaticResource smallDivider}" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto"/>
 
             <Grid x:Name="tabLauncher" RenderTransformOrigin="0,0.5" Width="Auto">
-                <!-- Launcher Button Start -->
+                <!-- Mods Button Start -->
                 <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
                 <Button x:Name="launcherButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
-                    <TextBlock Text="Launcher" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                    <TextBlock Text="Mods" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
                 </Button>
             </Grid>
-            <!-- Launcher Button End -->
+            <!-- Mods Button End -->
 
             <Grid x:Name="tabModpacks" RenderTransformOrigin="0,0.5" Width="Auto">
                 <!-- Modpack Button Start -->
@@ -54,19 +55,32 @@
         </StackPanel>
 
         <Grid x:Name="tabContent" Margin="222,0,0,0" Width="Auto" RenderTransformOrigin="1,0.5">
-            <Grid x:Name="launcherContent" Visibility="Visible">
-                <Button x:Name="launchButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
-                    <TextBlock x:Name="launchButtonText" Text="Launch Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
-                </Button>
+            <Grid x:Name="launcherContent" Visibility="Visible" Loaded="RegisterTab">
+                <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,0,0,469" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
+                <Rectangle Margin="158,96,158,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
+                <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,114,0,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
+                <StackPanel x:Name="activeModList" Margin="0,148,0,49">
+
+                </StackPanel>
+
+                <StackPanel x:Name="loaderSwitches" Margin="0,540,0,0" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Height="44" RenderTransformOrigin="0.5,1">
+                    <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="0" Margin="10, 0, 10, 0">
+                        <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
+                    </Button>
+                    
+                    <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="0" Margin="10, 0, 10, 0">
+                        <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
+                    </Button>
+                </StackPanel>
             </Grid>
 
-            <Grid x:Name="modpacksContent" Visibility="Collapsed">
+            <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab">
                 <Button x:Name="modpackButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
                     <TextBlock x:Name="modpackButtonText" Text="Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
                 </Button>
             </Grid>
 
-            <Grid x:Name="modSettingsContent" Visibility="Collapsed">
+            <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab">
                 <Button x:Name="modSettingsButton_" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
                     <TextBlock x:Name="modSettingsButtonText" Text="Launch dafsfdsfsdf" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
                 </Button>

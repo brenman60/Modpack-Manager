@@ -14,17 +14,19 @@ namespace brenman60_s_Modpack_Manager
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            tabContents.Add(launcherContent);
-            tabContents.Add(modpacksContent);
-            tabContents.Add(modSettingsContent);
+        private void RegisterTab(object sender, RoutedEventArgs e)
+        {
+            Grid? registeredGrid = sender as Grid;
+            if (registeredGrid == null) return;
+            tabContents.Add(registeredGrid);
         }
 
         private void SwitchTab(object sender, RoutedEventArgs e)
         {
             Button? clickedButton = sender as Button;
-            if (clickedButton == null)
-                return;
+            if (clickedButton == null) return;
 
             switch (clickedButton.Name)
             {
@@ -50,6 +52,11 @@ namespace brenman60_s_Modpack_Manager
                     item.Visibility = Visibility.Collapsed;
                 else
                     item.Visibility = Visibility.Visible;
+        }
+
+        private void SwitchLoader(object sender, RoutedEventArgs e)
+        {
+            // Probably call the reload mods function in the ModManager
         }
     }
 }
