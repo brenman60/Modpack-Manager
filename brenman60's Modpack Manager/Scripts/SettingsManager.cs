@@ -7,22 +7,22 @@ namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class SettingsManager
     {
-        public Dictionary<string, string> settings = new Dictionary<string, string>()
+        public static Dictionary<string, string> settings = new Dictionary<string, string>()
         {
             ["modsPath"] = "",
             ["askBeforeUpdate"] = "true",
         };
 
-        public Dictionary<string, Dictionary<string, Dictionary<string, string>>> modSettings = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>()
+        public static Dictionary<string, Dictionary<string, Dictionary<string, string>>> modSettings = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>()
         {
-            ["Forge"] = new Dictionary<string, string>()
+            ["Forge"] = new Dictionary<string, Dictionary<string, string>>()
             {
                 ["1.20.1"] = new Dictionary<string, string>()
                 {
 
                 },
             },
-            ["Fabric"] = new Dictionary<string, string>()
+            ["Fabric"] = new Dictionary<string, Dictionary<string, string>>()
             {
 
             },
@@ -36,6 +36,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
         public static string GetSettingsText()
         {
             // Turn settings into json
+            return null;
         }
 
         public static void SetModSettingsFromText(string text)
@@ -46,6 +47,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
         public static string GetModSettingsText()
         {
             // Turn mod settings into json
+            return null;
         }
     }
 }

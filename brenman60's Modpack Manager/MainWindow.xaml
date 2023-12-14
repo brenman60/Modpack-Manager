@@ -8,7 +8,8 @@
         Title="MainWindow" Height="600" Width="1050"
         MinHeight="600"
         MinWidth="1050" SizeToContent="Width"
-        Background="#FF616161">
+        ResizeMode="NoResize"
+        Background="Transparent">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,7 +21,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid Background="#FF616161">
         <StackPanel x:Name="tabList" Margin="0,0,773,0" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Left" MaxWidth="350">
             <TextBlock x:Name="titleText" Height="Auto" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager" Margin="15,5,15,2"/>
             <Rectangle x:Name="divider1" Height="10" Style="{StaticResource smallDivider}" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto"/>
@@ -54,24 +55,26 @@
 
         </StackPanel>
 
-        <Grid x:Name="tabContent" Margin="222,0,0,0" Width="Auto" RenderTransformOrigin="1,0.5">
-            <Grid x:Name="launcherContent" Visibility="Visible" Loaded="RegisterTab">
-                <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,0,0,469" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
-                <Rectangle Margin="158,96,158,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
-                <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,114,0,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
-                <StackPanel x:Name="activeModList" Margin="0,148,0,49">
+        <Grid x:Name="tabContent" Margin="222,0,0,44" Width="Auto" RenderTransformOrigin="1,0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-                </StackPanel>
+            <Grid x:Name="launcherContent" Visibility="Visible" Loaded="RegisterTab" HorizontalAlignment="Center" Width="828" RenderTransformOrigin="1,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                <StackPanel x:Name="loaderSwitches" Margin="0,540,0,0" Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" Height="44" RenderTransformOrigin="0.5,1">
-                    <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="0" Margin="10, 0, 10, 0">
-                        <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
-                    </Button>
-                    
-                    <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="0" Margin="10, 0, 10, 0">
-                        <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
-                    </Button>
-                </StackPanel>
+                <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,-828,0" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
+                <Rectangle Margin="171,98,-657,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
+                <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,114,-828,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
+                <StackPanel x:Name="activeModList" Margin="0,143,-828,0"/>
             </Grid>
 
             <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab">
@@ -86,5 +89,15 @@
                 </Button>
             </Grid>
         </Grid>
+
+        <StackPanel x:Name="loaderSwitches" Panel.ZIndex="50" Margin="564,0,0,0" Width="Auto" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="44" RenderTransformOrigin="0.5,1">
+            <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="1" Margin="10, 0, 10, 0">
+                <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
+            </Button>
+
+            <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="1" Margin="10, 0, 10, 0">
+                <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

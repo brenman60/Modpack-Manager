@@ -6,7 +6,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class ModpackManager
     {
-        public List<Dictionary<string, object>> modpacks = new List<Dictionary<string, object>>()
+        public static List<Dictionary<string, object>> modpacks = new List<Dictionary<string, object>>()
         {
             // Example modpack formatting
             new Dictionary<string, object>()
