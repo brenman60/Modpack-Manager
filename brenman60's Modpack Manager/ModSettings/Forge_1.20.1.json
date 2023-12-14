@@ -1,0 +1,6 @@
+﻿{
+  "devNotice":  "All values in this json should be formatted into a serialized list",
+  "General Mods": "['ExampleMod_FORGE.json']",
+  "Performance Mods": "[]",
+  "Quality of Life Mods": "[]"
+}

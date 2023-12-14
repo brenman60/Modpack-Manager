@@ -6,15 +6,18 @@ namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class ModpackManager
     {
-        public List<Dictionary<string, string>> modpacks = new List<Dictionary<string, string>>()
+        public List<Dictionary<string, object>> modpacks = new List<Dictionary<string, object>>()
         {
             // Example modpack formatting
-            new Dictionary<string, string>()
+            new Dictionary<string, object>()
             {
                 ["name"] = "Example Modpack",
                 ["loader"] = "Forge",
                 ["version"] = "1.20.1",
-                ["mods"] = "{}",
+                ["mods"] = new List<string>()
+                {
+                    "ExampleMod_FORGE.json",
+                },
             },
         };
     }
