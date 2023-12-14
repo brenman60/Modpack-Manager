@@ -1,11 +1,17 @@
-﻿namespace brenman60_s_Modpack_Manager.Scripts
+﻿using System.Collections.Generic;
+
+namespace brenman60_s_Modpack_Manager.Scripts
 {
     public class ModManager
     {
         // Dictionary that contains the currently selected loader, modpack, and mod settings that will be used later
-        public static Dictionary<string, string> settings = new Dictionary<string, string>()
+        public static Dictionary<string, string> saveData = new Dictionary<string, string>()
         {
-
+            ["settings"] = SettingsManager.GetSettingsText(),
+            ["modSettings"] = SettingsManager.GetModSettingsText(),
+            ["selectedLoader"] = "Forge",
+            ["selectedVersion"] = "1.20.1",
+            ["modpacks"] = "{}",
         };
 
         public void ReloadMods()
