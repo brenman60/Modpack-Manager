@@ -55,7 +55,7 @@
 
         </StackPanel>
 
-        <Grid x:Name="tabContent" Margin="222,0,0,44" Width="Auto" RenderTransformOrigin="1,0">
+        <Grid x:Name="tabContent" Margin="222,0,0,10" Width="Auto" RenderTransformOrigin="1,0">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
@@ -78,26 +78,22 @@
             </Grid>
 
             <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab">
-                <Button x:Name="modpackButton" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
-                    <TextBlock x:Name="modpackButtonText" Text="Minecraft" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
-                </Button>
+
             </Grid>
 
             <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab">
-                <Button x:Name="modSettingsButton_" Style="{StaticResource playButton}" Panel.ZIndex="0" Margin="250,450,250,66">
-                    <TextBlock x:Name="modSettingsButtonText" Text="Launch dafsfdsfsdf" Panel.ZIndex="1" Style="{StaticResource basicText}" TextAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
-                </Button>
+
             </Grid>
+
+            <StackPanel x:Name="loaderSwitches" Panel.ZIndex="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="44" RenderTransformOrigin="0.5,1">
+                <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource loaderButton}" Margin="10, 0, 10, 0">
+                    <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="30" Margin="20, 0, 20, 0"/>
+                </Button>
+
+                <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource loaderButton}" Margin="10, 0, 10, 0">
+                    <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="30" Margin="20, 0, 20, 0"/>
+                </Button>
+            </StackPanel>
         </Grid>
-
-        <StackPanel x:Name="loaderSwitches" Panel.ZIndex="50" Margin="564,0,0,0" Width="Auto" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="44" RenderTransformOrigin="0.5,1">
-            <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="1" Margin="10, 0, 10, 0">
-                <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
-            </Button>
-
-            <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource tabButton}" Panel.ZIndex="1" Margin="10, 0, 10, 0">
-                <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20"/>
-            </Button>
-        </StackPanel>
     </Grid>
 </Window>

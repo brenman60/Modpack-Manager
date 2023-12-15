@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using brenman60_s_Modpack_Manager.Scripts.Pages;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,11 +10,13 @@ namespace brenman60_s_Modpack_Manager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<IPage> pages = new List<IPage>();
         private List<Grid> tabContents = new List<Grid>();
 
         public MainWindow()
         {
             InitializeComponent();
+            RegisterPages();
         }
 
         private void RegisterTab(object sender, RoutedEventArgs e)
@@ -21,6 +24,11 @@ namespace brenman60_s_Modpack_Manager
             Grid? registeredGrid = sender as Grid;
             if (registeredGrid == null) return;
             tabContents.Add(registeredGrid);
+        }
+
+        private void RegisterPages()
+        {
+            pages.Add(new ModsPage());
         }
 
         private void SwitchTab(object sender, RoutedEventArgs e)
@@ -32,6 +40,7 @@ namespace brenman60_s_Modpack_Manager
             {
                 case "launcherButton":
                     ChangeTabVisiblity(launcherContent);
+                    pages[0].UpdateText(modLoaderText);
                     break;
                 case "modpacksButton":
                     ChangeTabVisiblity(modpacksContent);

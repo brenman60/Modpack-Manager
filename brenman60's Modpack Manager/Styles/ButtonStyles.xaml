@@ -55,9 +55,8 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="playButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource hoverColor}"/>
-        <Setter Property="BorderThickness" Value="0"/>
+    <Style x:Key="loaderButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource baseColor2}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -71,11 +70,11 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource hoverColor}"/>
+                <Setter Property="Background" Value="{StaticResource hoverColor2}"/>
             </Trigger>
 
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource selectedColor}"/>
+                <Setter Property="Background" Value="{StaticResource selectedColor2}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
