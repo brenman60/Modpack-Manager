@@ -8,7 +8,7 @@
         Title="MainWindow" Height="600" Width="1050"
         MinHeight="600"
         MinWidth="1050" SizeToContent="Width"
-        ResizeMode="NoResize"
+        ResizeMode="CanResize"
         Background="Transparent">
     <Window.Resources>
         <ResourceDictionary>
@@ -55,41 +55,42 @@
 
         </StackPanel>
 
-        <Grid x:Name="tabContent" Margin="222,0,0,10" Width="Auto" RenderTransformOrigin="1,0">
+        <Grid x:Name="tabContent" Margin="303,0,0,10" Width="Auto" HorizontalAlignment="Stretch" RenderTransformOrigin="1,0.5">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="73*"></RowDefinition>
+                <RowDefinition Height="9*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="launcherContent" Visibility="Visible" Loaded="RegisterTab" HorizontalAlignment="Center" Width="828" RenderTransformOrigin="1,0">
+            <Grid x:Name="launcherContent" Visibility="Visible" Loaded="RegisterTab">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,-828,0" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
-                <Rectangle Margin="171,98,-657,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
-                <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,114,-828,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
-                <StackPanel x:Name="activeModList" Margin="0,148,-828,55" CanVerticallyScroll="False" CanHorizontallyScroll="True">
-                    <Grid x:Name="TemplateModItem" Height="100" Background="{StaticResource baseColor2}" Margin="15,15,15,15">
-                        <TextBlock x:Name="TemplateModItemName" Text="Template Mod" Style="{StaticResource basicText}" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="48"/>
-                    </Grid>
-                </StackPanel>
+                <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" VerticalAlignment="Top" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
+                <Rectangle Margin="222,98,222,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
+                <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,114,0,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
+                <ScrollViewer x:Name="activeModListScroll" PreviewMouseWheel="ScrollModList" Margin="53,148,53,55" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel x:Name="activeModList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
+                        <Grid x:Name="templateModItem" Height="100" Background="{StaticResource hoverColor2}" Margin="15,15,15,15" Width="Auto" Visibility="Hidden">
+                            <TextBlock x:Name="templateModItemName" Text="Template Mod" Style="{StaticResource basicText}" Margin="10,10,0,34" FontSize="36" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="269"/>
+                            <TextBlock x:Name="templateModItemVersion" Text="1.0.0" Style="{StaticResource basicText}" Margin="10,66,0,10" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="148"/>
+                            <TextBlock x:Name="templateModItemDescription" Text="An example mod." Style="{StaticResource basicText}" Margin="317,10,15,10" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
 
-            <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab">
+            <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab" RenderTransformOrigin="1,0" Margin="0,0,-541,0"/>
 
-            </Grid>
+            <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab" RenderTransformOrigin="1,0" Margin="0,0,-541,0"/>
 
-            <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab">
-
-            </Grid>
-
-            <StackPanel x:Name="loaderSwitches" Panel.ZIndex="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="44" RenderTransformOrigin="0.5,1">
+            <StackPanel x:Name="loaderSwitches" Grid.Row="1" Panel.ZIndex="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="44" RenderTransformOrigin="0.5,1" Width="277">
                 <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource loaderButton}" Margin="10, 0, 10, 0">
                     <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="30" Margin="20, 0, 20, 0"/>
                 </Button>

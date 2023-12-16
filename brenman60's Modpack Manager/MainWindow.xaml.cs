@@ -1,5 +1,4 @@
 ﻿using brenman60_s_Modpack_Manager.Scripts.Pages;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,6 +16,7 @@ namespace brenman60_s_Modpack_Manager
         {
             InitializeComponent();
             RegisterPages();
+            SwitchTab(pages[0], null);
         }
 
         private void RegisterTab(object sender, RoutedEventArgs e)
@@ -67,6 +67,20 @@ namespace brenman60_s_Modpack_Manager
         private void SwitchLoader(object sender, RoutedEventArgs e)
         {
             // Probably call the reload mods function in the ModManager
+        }
+
+        private void ScrollModList(object sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            float speed = 1.25f;
+            ScrollViewer? scrollViewer = sender as ScrollViewer;
+            if (scrollViewer == null) return;
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta * (0.01 * speed));
+            e.Handled = true;
+        }
+
+        public object GetResource(string key)
+        {
+            return FindResource(key);
         }
     }
 }
