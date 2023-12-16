@@ -74,7 +74,11 @@
                 <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,-828,0" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
                 <Rectangle Margin="171,98,-657,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
                 <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,114,-828,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
-                <StackPanel x:Name="activeModList" Margin="0,143,-828,0"/>
+                <StackPanel x:Name="activeModList" Margin="0,148,-828,55" CanVerticallyScroll="False" CanHorizontallyScroll="True">
+                    <Grid x:Name="TemplateModItem" Height="100" Background="{StaticResource baseColor2}" Margin="15,15,15,15">
+                        <TextBlock x:Name="TemplateModItemName" Text="Template Mod" Style="{StaticResource basicText}" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="48"/>
+                    </Grid>
+                </StackPanel>
             </Grid>
 
             <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab">

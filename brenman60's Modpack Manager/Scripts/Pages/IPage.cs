@@ -10,8 +10,11 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
 {
     public interface IPage
     {
-        public string PageName { get; set; }
-
         public void UpdateText(TextBlock textBlock);
+
+        public void UpdateStackPanel(StackPanel list)
+        {
+
+        }
     }
 }

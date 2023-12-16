@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -9,7 +10,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
     {
         public static Dictionary<string, string> settings = new Dictionary<string, string>()
         {
-            ["modsPath"] = "",
+            ["modsPath"] = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft"), "mods"),
             ["askBeforeUpdate"] = "true",
         };
 

@@ -41,6 +41,7 @@ namespace brenman60_s_Modpack_Manager
                 case "launcherButton":
                     ChangeTabVisiblity(launcherContent);
                     pages[0].UpdateText(modLoaderText);
+                    pages[0].UpdateStackPanel(activeModList);
                     break;
                 case "modpacksButton":
                     ChangeTabVisiblity(modpacksContent);
