@@ -67,7 +67,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="launcherContent" Visibility="Visible" Loaded="RegisterTab">
+            <Grid x:Name="launcherContent" Visibility="Collapsed" Loaded="RegisterTab">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -80,7 +80,7 @@
                 <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,114,0,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
                 <ScrollViewer x:Name="activeModListScroll" PreviewMouseWheel="ScrollModList" Margin="32,148,31,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
                     <StackPanel x:Name="activeModList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
-                        <Grid x:Name="templateModItem" Height="100" Background="{StaticResource hoverColor2}" Margin="15,15,15,15" Width="Auto" Visibility="Hidden">
+                        <Grid x:Name="templateModItem" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
                             <TextBlock x:Name="templateModItemName" Text="Template Mod" Style="{StaticResource basicText}" Margin="10,10,0,34" FontSize="36" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="269"/>
                             <TextBlock x:Name="templateModItemVersion" Text="1.0.0" Style="{StaticResource basicText}" Margin="10,66,0,10" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="148"/>
                             <TextBlock x:Name="templateModItemDescription" Text="An example mod." Style="{StaticResource basicText}" Margin="317,10,15,10" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" HorizontalAlignment="Right"/>
@@ -89,9 +89,49 @@
                 </ScrollViewer>
             </Grid>
 
-            <Grid x:Name="modpacksContent" Visibility="Collapsed" Loaded="RegisterTab" RenderTransformOrigin="1,0" Margin="0,0,-541,0"/>
+            <Grid x:Name="modpacksContent" Visibility="Visible" Loaded="RegisterTab">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-            <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab" RenderTransformOrigin="1,0" Margin="0,0,-541,0"/>
+                <TextBlock Text="Modpacks" x:Name="modpacksTitleText" Style="{StaticResource basicText}" VerticalAlignment="Top" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
+                <Rectangle Margin="222,98,222,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
+                <ScrollViewer x:Name="modpackListScroll" PreviewMouseWheel="ScrollModList" Margin="32,148,31,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel x:Name="modpackList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
+                        <Grid x:Name="modpack0Item" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="173*"/>
+                                <ColumnDefinition Width="45*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="modpack0ModItemName" Text="None" Style="{StaticResource basicText}" Margin="10,10,10,10" FontSize="72" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="Auto"/>
+                            <Button x:Name="modpack0Select" Margin="6,10,6,10" Style="{StaticResource basicButton}" RenderTransformOrigin="1,0.5" MinWidth="120" Width="Auto" Grid.Column="1" Click="ChangeModpack">
+                                <TextBlock x:Name="modpack0SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
+                            </Button>
+                        </Grid>
+
+                        <Grid x:Name="modpack1Item" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="173*"/>
+                                <ColumnDefinition Width="45*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="modpack1ModItemName" Text="Create Modpack" Style="{StaticResource basicText}" Margin="10,10,0,57" FontSize="22" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="317" Grid.Column="0"/>
+                            <TextBlock x:Name="modpack1ModItemVersion" Text="1.19.2" Style="{StaticResource basicText}" Margin="0,14,10,0" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Right" Width="177" TextAlignment="Center" VerticalAlignment="Top" Height="24" Grid.Column="0"/>
+                            <TextBlock x:Name="modpack1ModItemDescription" Text="A Modpack containing the Create mod, as well as many other Create mod addons." Style="{StaticResource basicText}" Margin="10,43,10,10" FontSize="16" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" Width="Auto" Grid.Column="0"/>
+                            <TextBlock x:Name="modpack1ModItemModAmount" Text="Mods: 0" Style="{StaticResource basicText}" Margin="0,3,0,0" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Center" Width="123" TextAlignment="Center" VerticalAlignment="Top" Height="24" Grid.Column="1"/>
+                            <Button x:Name="modpack1Select" Margin="6,32,6,10" Style="{StaticResource basicButton}" RenderTransformOrigin="1,0.5" MinWidth="120" Width="Auto" Grid.Column="1" Click="ChangeModpack">
+                                <TextBlock x:Name="modpack1SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab"/>
 
             <StackPanel x:Name="loaderSwitches" Grid.Row="1" Panel.ZIndex="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="44" RenderTransformOrigin="0.5,1" Width="277">
                 <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource loaderButton}" Margin="10, 0, 10, 0">

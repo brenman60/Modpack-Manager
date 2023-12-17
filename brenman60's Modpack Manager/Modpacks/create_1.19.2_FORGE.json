@@ -1,6 +1,7 @@
 ﻿{
 	"loader": "Forge",
-	"modpackName": "brenman60's Create Modpack",
+	"modpackName": "brenman60's Create Modpack 1",
+	"description": "A Modpack containing the Create mod, as well as many other Create mod addons.",
 	"devNote": "Only include required mods in this list, don't include optional mods",
 	"mods": [
 		"alloyed-1.19.2-v1.5a",

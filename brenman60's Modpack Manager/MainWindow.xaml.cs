@@ -38,6 +38,7 @@ namespace brenman60_s_Modpack_Manager
         private void RegisterPages()
         {
             pages.Add(new ModsPage());
+            pages.Add(new ModpackPage());
         }
 
         private void SwitchTab(object sender, RoutedEventArgs e)
@@ -54,6 +55,7 @@ namespace brenman60_s_Modpack_Manager
                     break;
                 case "modpacksButton":
                     ChangeTabVisiblity(modpacksContent);
+                    pages[1].UpdateStackPanel(modpackList);
                     break;
                 case "modSettingsButton":
                     ChangeTabVisiblity(modSettingsContent);
@@ -76,6 +78,22 @@ namespace brenman60_s_Modpack_Manager
         private void SwitchLoader(object sender, RoutedEventArgs e)
         {
             // Probably call the reload mods function in the ModManager
+        }
+
+        public void ChangeModpack(object sender, RoutedEventArgs e)
+        {
+            Button? button = sender as Button;
+            if (button == null) return;
+
+            switch (button.Name)
+            {
+                case "modpack0Select":
+                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "None";
+                    break;
+                case "modpack1Select":
+                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "None";
+                    break;
+            }
         }
 
         private void ScrollModList(object sender, System.Windows.Input.MouseWheelEventArgs e)

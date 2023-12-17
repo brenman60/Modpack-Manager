@@ -69,18 +69,12 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     if (modpackInfo == null) return;
 
                     List<string> mods = JsonConvert.DeserializeObject<List<string>>(modpackInfo["mods"].ToString());
+                    if (mods == null) return;
+
                     foreach (string mod in mods)
                     {
-                        string modsJson = Path.Combine("../Mods/" + mod + ".json");
-                        using (StreamReader modInfo = new StreamReader(modsJson))
-                        {
-                            string modInfoText = modInfo.ReadToEnd();
-                            Dictionary<string, object> modInfoDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(modInfoText);
-                            if (modInfoDict == null) continue;
-
-                            if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], modInfoDict["file"].ToString())))
-                                File.Delete(Path.Combine(SettingsManager.settings["modsPath"], modInfoDict["file"].ToString()));
-                        }
+                        if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
+                            File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
                     }
                 }
             }
@@ -109,22 +103,22 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     List<string> mods = JsonConvert.DeserializeObject<List<string>>(modpackInfo["mods"].ToString());
                     foreach (string mod in mods)
                     {
-                        string modsJson = Path.Combine("../Mods/" + mod + ".json");
-                        using (StreamReader modInfo = new StreamReader(modsJson))
+                        if (File.Exists(Path.Combine(modStashPath, mod)))
+                            File.Copy(Path.Combine(modStashPath, mod), Path.Combine(SettingsManager.settings["modsPath"], mod));
+                        else
                         {
-                            string modInfoText = modInfo.ReadToEnd();
-                            Dictionary<string, object> modInfoDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(modInfoText);
-                            if (modInfoDict == null) continue;
-
-                            if (File.Exists(Path.Combine(modStashPath, modInfoDict["file"].ToString())))
-                                File.Copy(Path.Combine(modStashPath, modInfoDict["file"].ToString()), Path.Combine(SettingsManager.settings["modsPath"], modInfoDict["file"].ToString()));
-                            else
+                            string modsJson = Path.Combine("../Mods/" + mod + ".json");
+                            using (StreamReader modInfo = new StreamReader(modsJson))
                             {
-                                string downloadedPath = await downloader.DownloadFile(modInfoDict["directLink"].ToString(), ".jar");
+                                string modInfoText = modInfo.ReadToEnd();
+                                Dictionary<string, object> modInfoDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(modInfoText);
+                                if (modInfoDict == null) continue;
+
+                                string? downloadedPath = await downloader.DownloadFile(modInfoDict["directLink"].ToString(), ".jar");
                                 if (downloadedPath == null) continue;
 
-                                File.Copy(downloadedPath, Path.Combine(modStashPath, modInfoDict["file"].ToString()));
-                                File.Copy(downloadedPath, Path.Combine(SettingsManager.settings["modsPath"], modInfoDict["file"].ToString()));
+                                File.Copy(downloadedPath, Path.Combine(modStashPath, mod + ".jar"));
+                                File.Copy(downloadedPath, Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
                                 File.Delete(downloadedPath);
                             }
                         }
