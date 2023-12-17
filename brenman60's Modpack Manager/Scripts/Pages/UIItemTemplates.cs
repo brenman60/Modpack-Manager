@@ -137,7 +137,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             Button modpack0Select = new Button
             {
                 Name = modpackId + "Select",
-                Margin = new Thickness(6, 10, 6, 10),
+                Margin = new Thickness(6, 32, 6, 10),
                 Style = (Style)mainWindow.FindResource("basicButton"),
                 RenderTransformOrigin = new Point(1, 0.5),
                 MinWidth = 120,

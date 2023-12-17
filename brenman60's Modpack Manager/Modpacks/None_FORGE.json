@@ -1,9 +1,0 @@
-﻿{
-	"loader": "Forge",
-	"modpackName": "None",
-	"description": "Don't use a modpack.",
-	"devNote": "Only include required mods in this list, don't include optional mods",
-	"mods": [
-		
-	]
-}

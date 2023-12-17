@@ -78,6 +78,8 @@ namespace brenman60_s_Modpack_Manager
         private void SwitchLoader(object sender, RoutedEventArgs e)
         {
             // Probably call the reload mods function in the ModManager
+
+            updateMods.Visibility = Visibility.Visible;
         }
 
         public void ChangeModpack(object sender, RoutedEventArgs e)
@@ -87,13 +89,22 @@ namespace brenman60_s_Modpack_Manager
 
             switch (button.Name)
             {
-                case "modpack0Select":
-                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "None";
-                    break;
                 case "modpack1Select":
-                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "None";
+                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "modpack1";
+                    break;
+                case "modpack2Select":
+                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "modpack2";
                     break;
             }
+
+            updateMods.Visibility = Visibility.Visible;
+        }
+
+        private void ReloadMods(object sender, RoutedEventArgs e)
+        {
+            ModManager manager = new ModManager();
+            manager.ReloadMods();
+            updateMods.Visibility = Visibility.Hidden;
         }
 
         private void ScrollModList(object sender, System.Windows.Input.MouseWheelEventArgs e)

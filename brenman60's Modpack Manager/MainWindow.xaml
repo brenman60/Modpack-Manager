@@ -24,10 +24,21 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid Background="#FF616161">
-        <StackPanel x:Name="tabList" Margin="0,0,773,0" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Left" MaxWidth="350">
+    <Grid Background="#FF616161" x:Name="mainContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="149*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="457*"/>
+                <RowDefinition Height="127*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <StackPanel x:Name="tabList" RenderTransformOrigin="0,0.5" Width="Auto" HorizontalAlignment="Stretch" MaxWidth="350" Grid.Column="0" Grid.Row="0">
             <TextBlock x:Name="titleText" Height="Auto" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager" Margin="15,5,15,2"/>
-            <Rectangle x:Name="divider1" Height="10" Style="{StaticResource smallDivider}" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto"/>
+            <Rectangle x:Name="divider1" Height="10" Style="{StaticResource smallDivider}" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto" HorizontalAlignment="Stretch"/>
 
             <Grid x:Name="tabLauncher" RenderTransformOrigin="0,0.5" Width="Auto">
                 <!-- Mods Button Start -->
@@ -57,8 +68,16 @@
             <!-- Mod Settings Button End -->
 
         </StackPanel>
+        <TextBlock x:Name="versionText" Height="50" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextAlignment="Left" RenderTransformOrigin="0,1" Width="71" Text="1.0.0" Margin="8,0,0,5" Grid.Column="0"/>
 
-        <Grid x:Name="tabContent" Margin="303,0,0,10" Width="Auto" HorizontalAlignment="Stretch" RenderTransformOrigin="1,0.5">
+        <Grid x:Name="updateMods" Grid.Column="0" Margin="15,450,15,78" Background="{StaticResource hoverColor2}" Visibility="Hidden">
+            <TextBlock Text="Settings        Changed" x:Name="updateModsText" Style="{StaticResource basicText}" VerticalAlignment="Center" Width="Auto" FontSize="20" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2" Height="Auto" Margin="0,0,82,0" TextWrapping="Wrap"/>
+            <Button x:Name="updateModsButton" Margin="200,4,4,4" Style="{StaticResource basicButton}" RenderTransformOrigin="1,0.5" Width="Auto" Click="ReloadMods">
+                <TextBlock x:Name="updateModsButtonText" Text="Reload" Style="{StaticResource basicText}" FontSize="20" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="72" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="4, 0, 4, 0" Height="26"/>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="tabContent" Margin="5,0,0,10" Width="Auto" RenderTransformOrigin="1,0.5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="73*"></RowDefinition>
                 <RowDefinition Height="9*"></RowDefinition>

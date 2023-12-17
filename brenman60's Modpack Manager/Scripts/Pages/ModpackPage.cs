@@ -11,20 +11,20 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
         {
             list.Children.Clear();
 
-            string pathToModpacks = "../../Modpacks/";
-            DirectoryInfo modpackDirectory = new DirectoryInfo(pathToModpacks);
-            foreach (FileInfo modpack in modpackDirectory.GetFiles())
+            foreach (Dictionary<string, object> modpack in ModpackManager.modpacks)
             {
-                using (StreamReader modpackReader = new StreamReader(modpack.FullName))
+                if (modpack["loader"].ToString() == ModManager.saveData["selectedLoader"])
                 {
-                    string modpackRaw = modpackReader.ReadToEnd();
-                    Dictionary<string, object>? modpackInfo = JsonConvert.DeserializeObject<Dictionary<string, object>>(modpackRaw);
-                    if (modpackInfo == null) continue;
+                    List<string> modAmount_ = modpack["mods"] as List<string>;
+                    int modAmount = modAmount_.Count;
+                    Grid modpackItem = UIItemTemplates.CreateModpackItem(
+                        modpack["id"].ToString(), 
+                        modpack["modpackName"].ToString(),
+                        modpack["version"].ToString(),
+                        modpack["description"].ToString(),
+                        modAmount);
 
-                    if (modpackInfo["loader"].ToString() == ModManager.saveData["selectedLoader"])
-                    {
-
-                    }
+                    list.Children.Add(modpackItem);
                 }
             }
         }
