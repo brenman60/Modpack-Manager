@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace brenman60_s_Modpack_Manager.Scripts
+﻿namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class ModpackManager
     {

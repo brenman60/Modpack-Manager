@@ -8,14 +8,17 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
     {
         public static Grid CreateModItem(string modId, string modName, string modVersion, string modDescription)
         {
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+            MainWindow? mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow == null) return null;
+
             Grid templateModItem = new Grid
             {
                 Name = modId + "ModItem",
                 Height = 100,
                 Width = double.NaN,
                 Background = (Brush)mainWindow.FindResource("hoverColor2"),
-                Margin = new Thickness(15)
+                Margin = new Thickness(15),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
             };
 
             TextBlock templateModItemName = new TextBlock

@@ -103,7 +103,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
                         using (StreamReader reader = new StreamReader(stream))
                         {
                             string text = reader.ReadToEnd();
-                            MessageBox.Show("Mod: " + modFile.Name + " broken: " + text);
+                            //MessageBox.Show("Mod: " + modFile.Name + " broken: " + text);
                         }
                     }
                 }
@@ -127,7 +127,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             List<string> mods = GetAllMods();
             foreach (string mod in mods)
             {
-                Dictionary<string, string> modInfo = JsonConvert.DeserializeObject<Dictionary<string, string>>(mod);
+                Dictionary<string, string>? modInfo = JsonConvert.DeserializeObject<Dictionary<string, string>>(mod);
                 if (modInfo == null)
                     continue;
 

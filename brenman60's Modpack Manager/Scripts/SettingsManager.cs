@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using Newtonsoft.Json;
 
 namespace brenman60_s_Modpack_Manager.Scripts
@@ -12,21 +9,6 @@ namespace brenman60_s_Modpack_Manager.Scripts
         {
             ["modsPath"] = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".minecraft"), "mods"),
             ["askBeforeUpdate"] = "true",
-        };
-
-        public static Dictionary<string, Dictionary<string, Dictionary<string, string>>> modSettings = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>()
-        {
-            ["Forge"] = new Dictionary<string, Dictionary<string, string>>()
-            {
-                ["1.20.1"] = new Dictionary<string, string>()
-                {
-
-                },
-            },
-            ["Fabric"] = new Dictionary<string, Dictionary<string, string>>()
-            {
-
-            },
         };
 
         public static void SetSettingsFromText(string text)

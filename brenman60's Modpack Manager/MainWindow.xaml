@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1050"
         MinHeight="600"
-        MinWidth="1050" SizeToContent="Width"
+        MinWidth="1050"
+        MaxWidth="1550"
+        MaxHeight="700"
+        SizeToContent="Width"
         ResizeMode="CanResize"
         Background="Transparent">
     <Window.Resources>
@@ -75,7 +78,7 @@
                 <TextBlock Text="Active Mods" x:Name="modsTitleText" Style="{StaticResource basicText}" VerticalAlignment="Top" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
                 <Rectangle Margin="222,98,222,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
                 <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,114,0,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
-                <ScrollViewer x:Name="activeModListScroll" PreviewMouseWheel="ScrollModList" Margin="53,148,53,55" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
+                <ScrollViewer x:Name="activeModListScroll" PreviewMouseWheel="ScrollModList" Margin="32,148,31,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
                     <StackPanel x:Name="activeModList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
                         <Grid x:Name="templateModItem" Height="100" Background="{StaticResource hoverColor2}" Margin="15,15,15,15" Width="Auto" Visibility="Hidden">
                             <TextBlock x:Name="templateModItemName" Text="Template Mod" Style="{StaticResource basicText}" Margin="10,10,0,34" FontSize="36" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="269"/>
