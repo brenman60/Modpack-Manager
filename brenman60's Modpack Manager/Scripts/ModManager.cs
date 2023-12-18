@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
 
+///////////////////////////////////// Add downloading bar at the bottom of the screen ////////////////////////////////////////////
+
+
 namespace brenman60_s_Modpack_Manager.Scripts
 {
     public class ModManager
