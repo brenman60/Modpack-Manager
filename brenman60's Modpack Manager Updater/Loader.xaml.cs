@@ -5,11 +5,16 @@ namespace brenman60_s_Modpack_Manager_Updater
     /// <summary>
     /// Interaction logic for Loading.xaml
     /// </summary>
-    public partial class Loading : Window
+    public partial class Loader : Window
     {
-        public Loading()
+        public Loader()
         {
             InitializeComponent();
+        }
+
+        public static void ChangeStatus(string newStatus)
+        {
+            //progressText.Text = newStatus;
         }
     }
 }

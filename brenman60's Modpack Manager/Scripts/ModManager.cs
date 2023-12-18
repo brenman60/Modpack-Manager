@@ -1,5 +1,6 @@
 ﻿using ModpackManager.Utils;
 using Newtonsoft.Json;
+using System.Diagnostics;
 using System.IO;
 
 namespace brenman60_s_Modpack_Manager.Scripts
@@ -44,11 +45,32 @@ namespace brenman60_s_Modpack_Manager.Scripts
             },
         };
 
-        public void ReloadMods()
+        public async void ReloadMods()
         {
             ClearMods();
-            PlaceModpackMods();
-            PlaceSettingMods();
+            Process? visual = StartLoadingVisual();
+            Task<bool> placeModpack = PlaceModpackMods();
+            Task<bool> placeSettingMods = PlaceSettingMods();
+
+            await placeModpack;
+            await placeSettingMods;
+
+            if (visual != null) 
+                visual.Kill();
+        }
+
+        private Process? StartLoadingVisual()
+        {
+            string updaterPath = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager Loader.exe");
+            ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
+            {
+                CreateNoWindow = false,
+                Arguments = "onlyVisual",
+                FileName = updaterPath,
+                WindowStyle = ProcessWindowStyle.Normal,
+            };
+
+            return Process.Start(updaterStartInfo);
         }
 
         // Delete or move all the current mods in the mods folder
@@ -74,13 +96,13 @@ namespace brenman60_s_Modpack_Manager.Scripts
             List<string> includedMods = JsonConvert.DeserializeObject<List<string>>(selectedMods);
             foreach (string mod in includedMods)
             {
-                if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod)))
-                    File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod));
+                if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
+                    File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
             }
         }
 
         // Copy the mods from the currently selected modpack into the mods folder
-        private async void PlaceModpackMods()
+        private async Task<bool> PlaceModpackMods()
         {
             string selectedModpack_ = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["selectedModpack"];
             if (selectedModpack_ != "None")
@@ -90,15 +112,17 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     if (modpack["id"].ToString() == selectedModpack_)
                         selectedModpack = modpack;
 
-                if (selectedModpack == null) return;
+                if (selectedModpack == null) return false;
 
                 List<string>? mods = selectedModpack["mods"] as List<string>;
-                if (mods == null) return;
+                if (mods == null) return false;
 
                 foreach (string mod in mods)
                 {
                     if (File.Exists(Path.Combine(modStashPath, mod + ".jar")))
+                    {
                         File.Copy(Path.Combine(modStashPath, mod + ".jar"), Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
+                    }
                     else
                     {
                         string downloadLink = Mods.directDownloads[saveData["selectedLoader"]][saveData["selectedVersion"]][mod];
@@ -110,20 +134,26 @@ namespace brenman60_s_Modpack_Manager.Scripts
                         File.Delete(downloadedPath);
                     }
                 }
+
+                return true;
             }
+            else
+                return true;
         }
 
         // Copy the mods enabled in the settings into the mods folder
-        private async void PlaceSettingMods()
+        private async Task<bool> PlaceSettingMods()
         {
             string selectedMods = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["modSettings"];
             List<string>? includedMods = JsonConvert.DeserializeObject<List<string>>(selectedMods);
-            if (includedMods == null) return;
+            if (includedMods == null) return false;
 
             foreach (string mod in includedMods)
             {
                 if (File.Exists(Path.Combine(modStashPath, mod + ".jar")))
+                {
                     File.Copy(Path.Combine(modStashPath, mod + ".jar"), Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
+                }
                 else
                 {
                     string downloadLink = Mods.directDownloads[saveData["selectedLoader"]][saveData["selectedVersion"]][mod];
@@ -135,12 +165,8 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     File.Delete(downloadedPath);
                 }
             }
+
+            return true;
         }
     }
-}
-
-public enum Loader
-{
-    Forge,
-    Fabric,
 }

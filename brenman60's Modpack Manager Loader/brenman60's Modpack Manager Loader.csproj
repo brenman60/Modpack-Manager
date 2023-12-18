@@ -3,13 +3,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>brenman60s_Modpack_Manager</RootNamespace>
+    <RootNamespace>brenman60s_Modpack_Manager_Loader</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <BaseOutputPath>..\brenman60s Modpack Manager\Build</BaseOutputPath>
-    <PackageId>brenman60s_Modpack_Manager</PackageId>
+    <PackageId>brenman60s_Modpack_Manager_Loader</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,11 +20,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\brenman60's Modpack Manager Loader\brenman60's Modpack Manager Loader.csproj" />
     <ProjectReference Include="..\ModpackManager\ModpackManager.csproj" />
   </ItemGroup>
 

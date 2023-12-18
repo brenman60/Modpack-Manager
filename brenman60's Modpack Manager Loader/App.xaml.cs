@@ -1,11 +1,14 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.IO.Compression;
+using System.IO;
 using System.Windows;
 using ModpackManager.Utils;
 
-namespace brenman60_s_Modpack_Manager_Updater
+namespace brenman60_s_Modpack_Manager_Loader
 {
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
     public partial class App : Application
     {
         FileManager fileManager = new FileManager();
@@ -40,8 +43,6 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         async void DownloadLatestProgram(string programPath)
         {
-            ChangeStatus("Downloading Newest Version...");
-
             // Download program as zip
             string downloadedProgram = await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersion], ".zip");
 
@@ -54,7 +55,6 @@ namespace brenman60_s_Modpack_Manager_Updater
                 Directory.Delete(di.FullName, true);
 
             // Extract newly downloaded program zip into program directory
-            ChangeStatus("Extracting Zip...");
             ZipFile.ExtractToDirectory(downloadedProgram, programPath, true);
             File.Delete(downloadedProgram);
 
@@ -90,8 +90,6 @@ namespace brenman60_s_Modpack_Manager_Updater
                 MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Update now?", "A new version is available", System.Windows.MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    ChangeStatus("Beginning Update...");
-
                     // If there is a new version available
                     void CopyDirectory(DirectoryInfo source, DirectoryInfo destination)
                     {
@@ -138,8 +136,6 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         async void FirstTimeDownload()
         {
-            ChangeStatus("Downloading File...");
-
             // Version file doesn't exist, so this is probably a first time startup, so just download the newest version file and open the program
             string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText]));
             bool written = await fileManager.WriteToFile(FileManager.versionFilePath, latestVersion);
@@ -148,8 +144,6 @@ namespace brenman60_s_Modpack_Manager_Updater
 
         private void StartMain()
         {
-            ChangeStatus("Starting...");
-
             ProcessStartInfo bmmStartInfo = new ProcessStartInfo()
             {
                 Arguments = "verified",
@@ -161,13 +155,6 @@ namespace brenman60_s_Modpack_Manager_Updater
             Process.Start(bmmStartInfo);
 
             Environment.Exit(0);
-        }
-
-        public static void ChangeStatus(string newStatus)
-        {
-            //Loader.ChangeStatus(newStatus);
-            //Loading loading = new Loading();
-            //loading.progressText.Text = newStatus;
         }
     }
 }

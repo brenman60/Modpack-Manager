@@ -20,7 +20,7 @@ namespace brenman60_s_Modpack_Manager
                 if (startUpdater)
                 {
                     // Start the updater and close this application
-                    string updaterPath = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager Updater.exe");
+                    string updaterPath = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager Loader.exe");
                     ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
                     {
                         CreateNoWindow = false,
