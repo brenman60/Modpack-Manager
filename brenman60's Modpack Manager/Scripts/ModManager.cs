@@ -1,10 +1,6 @@
 ﻿using ModpackManager.Utils;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.IO;
-
-///////////////////////////////////// Add downloading bar at the bottom of the screen ////////////////////////////////////////////
-
 
 namespace brenman60_s_Modpack_Manager.Scripts
 {
@@ -14,10 +10,14 @@ namespace brenman60_s_Modpack_Manager.Scripts
 
         public static readonly string modStashPath = Path.Combine(Directory.GetCurrentDirectory(), "mods");
 
+        private readonly string saveDataLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "brenman60's Mod Manager");
+        private readonly string saveDataFile = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "brenman60's Mod Manager"), "settings.bmm");
+
         // Dictionary that contains the currently selected loader, modpack, and mod settings that will be used later
         public static Dictionary<string, string> saveData = new Dictionary<string, string>()
         {
             ["settings"] = SettingsManager.GetSettingsText(),
+            ["modSettings"] = JsonConvert.SerializeObject(modSettings),
             ["selectedLoader"] = "Forge",
             ["selectedVersion"] = "1.19.2",
             ["userCreatedModpacks"] = "{}",
@@ -40,6 +40,11 @@ namespace brenman60_s_Modpack_Manager.Scripts
             },
             ["Fabric"] = new Dictionary<string, Dictionary<string, string>>()
             {
+                ["1.19.2"] = new Dictionary<string, string>()
+                {
+                    ["selectedModpack"] = "None",
+                    ["modSettings"] = "[]",
+                },
                 ["1.20.1"] = new Dictionary<string, string>()
                 {
                     ["selectedModpack"] = "None",
@@ -50,34 +55,21 @@ namespace brenman60_s_Modpack_Manager.Scripts
 
         public async void ReloadMods()
         {
+            MainWindow.workingJob = true;
+            ((MainWindow)App.Current.MainWindow).ToggleProgressBar(true);
             ClearMods();
-            Process? visual = StartLoadingVisual();
             Task<bool> placeModpack = PlaceModpackMods();
             Task<bool> placeSettingMods = PlaceSettingMods();
 
             await placeModpack;
             await placeSettingMods;
 
-            if (visual != null) 
-                visual.Kill();
-        }
-
-        private Process? StartLoadingVisual()
-        {
-            string updaterPath = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager Loader.exe");
-            ProcessStartInfo updaterStartInfo = new ProcessStartInfo()
-            {
-                CreateNoWindow = false,
-                Arguments = "onlyVisual",
-                FileName = updaterPath,
-                WindowStyle = ProcessWindowStyle.Normal,
-            };
-
-            return Process.Start(updaterStartInfo);
+            ((MainWindow)App.Current.MainWindow).ToggleProgressBar(false);
+            MainWindow.workingJob = false;
         }
 
         // Delete or move all the current mods in the mods folder
-        private void ClearMods()
+        public void ClearMods()
         {
             // Loop through the currently enabled modpacks' mods and delete it (as it still exists in the mod stash)
             // Then loop through the enabled mod settings' mods and delete it (as it still exists in the mod stash)
@@ -90,6 +82,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
                 {
                     foreach (string mod in modpack["mods"] as List<string>)
                     {
+                        ((MainWindow)App.Current.MainWindow).ChangeProgressText("Checking " + mod + ".jar...");
                         if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
                             File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
                     }
@@ -99,6 +92,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
             List<string> includedMods = JsonConvert.DeserializeObject<List<string>>(selectedMods);
             foreach (string mod in includedMods)
             {
+                ((MainWindow)App.Current.MainWindow).ChangeProgressText("Checking " + mod + ".jar...");
                 if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
                     File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
             }
@@ -124,14 +118,17 @@ namespace brenman60_s_Modpack_Manager.Scripts
                 {
                     if (File.Exists(Path.Combine(modStashPath, mod + ".jar")))
                     {
+                        ((MainWindow)App.Current.MainWindow).ChangeProgressText("Copying " + mod + ".jar...");
                         File.Copy(Path.Combine(modStashPath, mod + ".jar"), Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
                     }
                     else
                     {
+                        ((MainWindow)App.Current.MainWindow).ChangeProgressText("Downloading " + mod + ".jar...");
                         string downloadLink = Mods.directDownloads[saveData["selectedLoader"]][saveData["selectedVersion"]][mod];
                         string? downloadedPath = await downloader.DownloadFile(downloadLink, ".jar");
                         if (downloadedPath == null) continue;
 
+                        ((MainWindow)App.Current.MainWindow).ChangeProgressText("Configuring " + mod + ".jar...");
                         File.Copy(downloadedPath, Path.Combine(modStashPath, mod + ".jar"));
                         File.Copy(downloadedPath, Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
                         File.Delete(downloadedPath);
@@ -155,14 +152,17 @@ namespace brenman60_s_Modpack_Manager.Scripts
             {
                 if (File.Exists(Path.Combine(modStashPath, mod + ".jar")))
                 {
+                    ((MainWindow)App.Current.MainWindow).ChangeProgressText("Copying " + mod + ".jar...");
                     File.Copy(Path.Combine(modStashPath, mod + ".jar"), Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
                 }
                 else
                 {
+                    ((MainWindow)App.Current.MainWindow).ChangeProgressText("Downloading " + mod + ".jar...");
                     string downloadLink = Mods.directDownloads[saveData["selectedLoader"]][saveData["selectedVersion"]][mod];
                     string? downloadedPath = await downloader.DownloadFile(downloadLink, ".jar");
                     if (downloadedPath == null) continue;
 
+                    ((MainWindow)App.Current.MainWindow).ChangeProgressText("Configuring " + mod + ".jar...");
                     File.Copy(downloadedPath, Path.Combine(modStashPath, mod + ".jar"));
                     File.Copy(downloadedPath, Path.Combine(SettingsManager.settings["modsPath"], mod));
                     File.Delete(downloadedPath);
@@ -170,6 +170,28 @@ namespace brenman60_s_Modpack_Manager.Scripts
             }
 
             return true;
+        }
+
+        public async void SaveData()
+        {
+            FileManager fileManager = new();
+            saveData["modSettings"] = JsonConvert.SerializeObject(modSettings);
+            string text = JsonConvert.SerializeObject(saveData);
+
+            if (!Directory.Exists(saveDataLocation)) Directory.CreateDirectory(saveDataLocation);
+
+            await fileManager.WriteToFile(saveDataFile, text);
+        }
+        
+        public async void LoadData()
+        {
+            if (!File.Exists(saveDataFile)) { SaveData(); return; }
+
+            FileManager fileManager = new();
+            string saveDataRaw = fileManager.ReadFile(saveDataFile);
+            saveData = JsonConvert.DeserializeObject<Dictionary<string, string>>(saveDataRaw);
+            SettingsManager.settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(saveData["settings"]);
+            modSettings = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, Dictionary<string, string>>>>(saveData["modSettings"]);
         }
     }
 }

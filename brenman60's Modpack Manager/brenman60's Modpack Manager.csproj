@@ -21,12 +21,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\CheckmarkBlack.png" />
+    <None Remove="img\CheckmarkDarkGray.png" />
+    <None Remove="img\CheckmarkGray.png" />
+    <None Remove="img\CheckmarkWhite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\brenman60's Modpack Manager Loader\brenman60's Modpack Manager Loader.csproj" />
     <ProjectReference Include="..\ModpackManager\ModpackManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\CheckmarkBlack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\CheckmarkDarkGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\CheckmarkGray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\CheckmarkWhite.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

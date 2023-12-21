@@ -1,8 +1,11 @@
 ﻿using brenman60_s_Modpack_Manager.Scripts;
 using brenman60_s_Modpack_Manager.Scripts.Pages;
+using brenman60s_Modpack_Manager.Scripts.Pages;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace brenman60_s_Modpack_Manager
 {
@@ -11,6 +14,8 @@ namespace brenman60_s_Modpack_Manager
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static bool workingJob = false;
+
         private List<IPage> pages = new List<IPage>();
         private List<Grid> tabContents = new List<Grid>();
 
@@ -18,8 +23,11 @@ namespace brenman60_s_Modpack_Manager
         {
             InitializeComponent();
             RegisterPages();
-            SwitchTab(pages[0], null);
+            ModManager modManager = new();
+            modManager.LoadData();
             EnsureModStash();
+
+            Closing += MainWindow_Closing;
         }
 
         private void EnsureModStash()
@@ -39,12 +47,15 @@ namespace brenman60_s_Modpack_Manager
         {
             pages.Add(new ModsPage());
             pages.Add(new ModpackPage());
+            pages.Add(new ModSettingsPage());
         }
 
+        private Button activeTab;
         private void SwitchTab(object sender, RoutedEventArgs e)
         {
             Button? clickedButton = sender as Button;
             if (clickedButton == null) return;
+            activeTab = clickedButton;
 
             switch (clickedButton.Name)
             {
@@ -59,6 +70,7 @@ namespace brenman60_s_Modpack_Manager
                     break;
                 case "modSettingsButton":
                     ChangeTabVisiblity(modSettingsContent);
+                    pages[2].UpdateStackPanel(modSettingsList);
                     break;
                 default:
                     ChangeTabVisiblity(launcherContent);
@@ -77,13 +89,36 @@ namespace brenman60_s_Modpack_Manager
 
         private void SwitchLoader(object sender, RoutedEventArgs e)
         {
-            // Probably call the reload mods function in the ModManager
+            if (!CheckIfFree()) return;
 
-            updateMods.Visibility = Visibility.Visible;
+            ToggleProgressBar(true);
+
+            // Probably call the reload mods function in the ModManager
+            ModManager modManager = new ModManager();
+            modManager.ClearMods();
+
+            Button? button = sender as Button;
+            if (button == null) return;
+
+            switch (button.Name)
+            {
+                case "forgeSwitchButton":
+                    ModManager.saveData["selectedLoader"] = "Forge";
+                    modManager.ReloadMods();
+                    break;
+                case "fabricSwitchButton":
+                    ModManager.saveData["selectedLoader"] = "Fabric";
+                    modManager.ReloadMods();
+                    break;
+            }
+
+            SwitchTab(activeTab, null);
         }
 
         public void ChangeModpack(object sender, RoutedEventArgs e)
         {
+            if (!CheckIfFree()) return;
+
             Button? button = sender as Button;
             if (button == null) return;
 
@@ -102,6 +137,8 @@ namespace brenman60_s_Modpack_Manager
 
         private void ReloadMods(object sender, RoutedEventArgs e)
         {
+            if (!CheckIfFree()) return;
+
             ModManager manager = new ModManager();
             manager.ReloadMods();
             updateMods.Visibility = Visibility.Hidden;
@@ -114,6 +151,28 @@ namespace brenman60_s_Modpack_Manager
             if (scrollViewer == null) return;
             scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta * (0.01 * speed));
             e.Handled = true;
+        }
+
+        public void ChangeProgressText(string newText)
+        {
+            progressbarText.Text = newText;
+        }
+
+        public void ToggleProgressBar(bool status)
+        {
+            DoubleAnimation animation = new DoubleAnimation(status ? 75 : 0, new Duration(TimeSpan.FromSeconds(.25)));
+            downloadBar.BeginAnimation(HeightProperty, animation);
+        }
+
+        private bool CheckIfFree()
+        {
+            return !workingJob;
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            ModManager modManager = new();
+            modManager.SaveData();
         }
     }
 }

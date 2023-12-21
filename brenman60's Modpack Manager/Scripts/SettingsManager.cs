@@ -13,24 +13,15 @@ namespace brenman60_s_Modpack_Manager.Scripts
 
         public static void SetSettingsFromText(string text)
         {
-            // Convert text into settings dictionary
+            Dictionary<string, string>? data = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+            if (data == null) return;
+
+            settings = data;
         }
 
         public static string GetSettingsText()
         {
-            // Turn settings into json
-            return null;
-        }
-
-        public static void SetModSettingsFromText(string text)
-        {
-            // Convert text into mod settings dictionary
-        }
-
-        public static string GetModSettingsText()
-        {
-            // Turn mod settings into json
-            return null;
+            return JsonConvert.SerializeObject(settings);
         }
     }
 }

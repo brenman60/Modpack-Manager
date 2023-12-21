@@ -60,5 +60,64 @@
                 },
             },
         };
+
+        public static Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>> modSettings = new Dictionary<string, Dictionary<string, Dictionary<string, List<string>>>>()
+        {
+            ["Forge"] = new Dictionary<string, Dictionary<string, List<string>>>()
+            {
+                ["1.19.2"] = new Dictionary<string, List<string>>()
+                {
+                    ["Preference Mods"] = new List<string>()
+                    {
+                        "jei-1.19.2-forge-11.6.0.1018",
+                        "fullbrightnesstoggle-1.19.2-3.0",
+                    },
+                    ["Performance Mods"] = new List<string>()
+                    {
+                        "rubidium-0.6.2b",
+                        "entityculling-forge-1.6.1-mc1.19.2",
+                        "starlight-1.1.1+forge.cf5b10b",
+                        "oculus-mc1.19.2-1.6.4",
+                        "oculus-flywheel-compat-1.19.2-0.2.1"
+                    },
+                },
+                ["1.20.1"] = new Dictionary<string, List<string>>()
+                {
+                    ["Preference Mods"] = new List<string>()
+                    {
+
+                    },
+                    ["Performance Mods"] = new List<string>()
+                    {
+
+                    },
+                },
+            },
+            ["Fabric"] = new Dictionary<string, Dictionary<string, List<string>>>()
+            {
+                ["1.19.2"] = new Dictionary<string, List<string>>()
+                {
+                    ["Preference Mods"] = new List<string>()
+                    {
+
+                    },
+                    ["Performance Mods"] = new List<string>()
+                    {
+
+                    },
+                },
+                ["1.20.1"] = new Dictionary<string, List<string>>()
+                {
+                    ["Preference Mods"] = new List<string>()
+                    {
+
+                    },
+                    ["Performance Mods"] = new List<string>()
+                    {
+
+                    },
+                },
+            },
+        };
     }
 }

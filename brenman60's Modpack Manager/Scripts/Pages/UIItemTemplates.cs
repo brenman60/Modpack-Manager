@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace brenman60_s_Modpack_Manager.Scripts.Pages
 {
@@ -62,9 +63,17 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
                 HorizontalAlignment = HorizontalAlignment.Right,
             };
 
+            Border border1 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
+                BorderThickness = new Thickness(2),
+            };
+            Grid.SetColumnSpan(border1, 2);
+
             templateModItem.Children.Add(templateModItemName);
             templateModItem.Children.Add(templateModItemVersion);
             templateModItem.Children.Add(templateModItemDescription);
+            templateModItem.Children.Add(border1);
 
             return templateModItem;
         }
@@ -178,16 +187,172 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             };
             Grid.SetColumn(modpack0ModItemModAmount, 1);
 
+            Border border1 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
+                BorderThickness = new Thickness(2),
+            };
+            Grid.SetColumnSpan(border1, 2);
+
+            Border border2 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
+                BorderThickness = new Thickness(2),
+            };
+            Grid.SetColumnSpan(border2, 1);
+            Grid.SetColumn(border2, 2);
+
+            Border border3 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor"),
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(5, 32, 5, 10),
+            };
+            Grid.SetColumnSpan(border3, 1);
+            Grid.SetColumn(border3, 2);
+
             modpack0Select.Click += mainWindow.ChangeModpack;
 
             modpack0Item.Children.Add(modpack0ModItemName);
             modpack0Item.Children.Add(modpack0ModItemVersion);
             modpack0Item.Children.Add(modpack0ModItemDescription);
             modpack0Item.Children.Add(modpack0ModItemModAmount);
+            modpack0Item.Children.Add(border1);
+            modpack0Item.Children.Add(border2);
+            modpack0Item.Children.Add(border3);
             modpack0Select.Content = modpack0SelectText;
             modpack0Item.Children.Add(modpack0Select);
 
             return modpack0Item;
+        }
+
+        public static Grid CreateModSettingItem(string modId, string modName, string modFile)
+        {
+            MainWindow? mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow == null) return null;
+
+            Grid modSettings0Item = new Grid
+            {
+                Name = modId + "Item",
+                Height = 60,
+                Width = double.NaN,
+                Background = (Brush)mainWindow.FindResource("hoverColor2"),
+                Margin = new Thickness(15, 5, 15, 5),
+                Visibility = Visibility.Visible
+            };
+
+            modSettings0Item.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(173, GridUnitType.Star) });
+            modSettings0Item.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
+
+            TextBlock modSettings0ModItemName = new TextBlock
+            {
+                Name = modId + "ItemName",
+                Text = modName,
+                Style = (Style)mainWindow.FindResource("basicText"),
+                Margin = new Thickness(4, 3, 3, 0),
+                FontSize = 25,
+                TextWrapping = TextWrapping.Wrap,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                RenderTransformOrigin = new Point(0, 0.5),
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = double.NaN,
+                Height = 34
+            };
+
+            TextBlock modSettings0ModItemFile = new TextBlock
+            {
+                Name = modId + "ItemFile",
+                Text = modFile,
+                Style = (Style)mainWindow.FindResource("basicText"),
+                Margin = new Thickness(4, 37, 3, 0),
+                FontSize = 15,
+                TextWrapping = TextWrapping.Wrap,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                RenderTransformOrigin = new Point(0, 0.5),
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = double.NaN,
+                Height = 20
+            };
+
+            Button modSettings0Check = new Button
+            {
+                Name = modId + "Check",
+                Margin = new Thickness(0, 5, 0, 5),
+                Style = (Style)mainWindow.FindResource("checkmarkButton"),
+                RenderTransformOrigin = new Point(1, 0.5),
+                Width = 50,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            Grid.SetColumn(modSettings0Check, 1);
+
+            Image modSettings0Checkmark = new Image
+            {
+                Name = modId + "Checkmark",
+                Visibility = Visibility.Visible,
+                Source = new BitmapImage(new Uri("/img/CheckmarkDarkGray.png", UriKind.Relative)),
+                Margin = new Thickness(10, 10, 10, 10),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
+            };
+
+            modSettings0Check.Content = modSettings0Checkmark;
+
+            Border border1 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
+                BorderThickness = new Thickness(2),
+            };
+            Grid.SetColumnSpan(border1, 2);
+
+            Border border2 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
+                BorderThickness = new Thickness(2),
+            };
+            Grid.SetColumn(border2, 2);
+            Grid.SetColumnSpan(border2, 1);
+
+            Border border3 = new Border
+            {
+                BorderBrush = (Brush)mainWindow.FindResource("selectedColor"),
+                Margin = new Thickness(5, 5, 5, 5),
+                BorderThickness = new Thickness(1),
+            };
+            Grid.SetColumn(border3, 2);
+            Grid.SetColumnSpan(border3, 1);
+
+            modSettings0Item.Children.Add(modSettings0ModItemName);
+            modSettings0Item.Children.Add(modSettings0ModItemFile);
+            modSettings0Item.Children.Add(modSettings0Check);
+            modSettings0Item.Children.Add(border1);
+            modSettings0Item.Children.Add(border2);
+            modSettings0Item.Children.Add(border3);
+
+            return modSettings0Item;
+        }
+
+        public static TextBlock CreateModCategoryText(string categoryId, string modCategory)
+        {
+            MainWindow? mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow == null) return null;
+
+            TextBlock modCategoryName = new TextBlock
+            {
+                Name = categoryId + "CategoryName",
+                Text = modCategory,
+                Style = (Style)mainWindow.FindResource("basicText"),
+                Margin = new Thickness(4, 3, 3, 0),
+                FontSize = 45,
+                TextWrapping = TextWrapping.Wrap,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                RenderTransformOrigin = new Point(0, 0.5),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = double.NaN,
+                Height = double.NaN
+            };
+
+            return modCategoryName;
         }
     }
 }

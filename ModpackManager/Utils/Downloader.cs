@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Net.Http;
-using System.Printing.IndexedProperties;
 using System.Security.Cryptography;
 
 namespace ModpackManager.Utils
@@ -17,20 +16,32 @@ namespace ModpackManager.Utils
         {
             if (downloadLink == null || string.IsNullOrEmpty(downloadLink) || string.IsNullOrWhiteSpace(downloadLink)) return null;
 
-            using (var http = new HttpClient())
+            string? task = await Task.Run(DownloadFile_);
+            return task;
+            async Task<string?> DownloadFile_()
             {
-                using (var download = await http.GetStreamAsync(downloadLink))
+                using (var http = new HttpClient())
                 {
-                    if (download == null) return null;
-
-                    string tempFileLocation = Path.Combine(Path.GetTempPath(), "downloadedFileModpackManager" + RandomNumberGenerator.GetInt32(999999) + fileExtension);
-                    using (var stream = new FileStream(tempFileLocation, FileMode.OpenOrCreate))
+                    using (var download = await http.GetStreamAsync(downloadLink))
                     {
-                        await download.CopyToAsync(stream);
-                        stream.Close();
-                    }
+                        if (download == null) return null;
 
-                    return tempFileLocation;
+                        string tempFileLocation = Path.Combine(Path.GetTempPath(), "downloadedFileModpackManager" + RandomNumberGenerator.GetInt32(999999) + fileExtension);
+                        using (var stream = new FileStream(tempFileLocation, FileMode.OpenOrCreate))
+                        {
+                            byte[] buffer = new byte[81920];
+                            int bytesRead;
+
+                            while ((bytesRead = await download.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                            {
+                                await stream.WriteAsync(buffer, 0, bytesRead);
+                            }
+
+                            stream.Close();
+                        }
+
+                        return tempFileLocation;
+                    }
                 }
             }
         }

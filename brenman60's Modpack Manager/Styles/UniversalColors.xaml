@@ -9,6 +9,12 @@
     <SolidColorBrush x:Key="hoverColor2" Color="#FF565656"/>
     <SolidColorBrush x:Key="selectedColor2" Color="#FF505050"/>
 
+    <SolidColorBrush x:Key="baseColor3" Color="#FF646464"/>
+    
+    <SolidColorBrush x:Key="checkmarkBaseColor" Color="#FF5A5A5A"/>
+    <SolidColorBrush x:Key="checkmarkHoverColor" Color="#FF565656"/>
+    <SolidColorBrush x:Key="checkmarkSelectedColor" Color="#FF505050"/>
+
     <LinearGradientBrush x:Key="tabBaseColor">
         <GradientStop Color="#FF616161" Offset="1"/>
         <GradientStop Color="#FF545454" Offset="0"/>

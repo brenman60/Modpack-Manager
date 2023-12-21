@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace brenman60_s_Modpack_Manager.Scripts
+﻿namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class Mods
     {
@@ -34,6 +28,15 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     ["collective-1.19.2-6.65"] = "https://www.curseforge.com/api/v1/mods/342584/files/4639340/download",
                     ["curios-forge-1.19.2-5.1.4.1"] = "https://www.curseforge.com/api/v1/mods/309927/files/4523009/download",
                     ["framework-forge-1.19.2-0.6.16"] = "https://www.curseforge.com/api/v1/mods/549225/files/4718247/download",
+
+                    // Preference mods
+                    ["entityculling-forge-1.6.1-mc1.19.2"] = "https://www.curseforge.com/api/v1/mods/448233/files/4404949/download",
+                    ["fullbrightnesstoggle-1.19.2-3.0"] = "https://www.curseforge.com/api/v1/mods/391656/files/4327370/download",
+                    ["jei-1.19.2-forge-11.6.0.1018"] = "https://www.curseforge.com/api/v1/mods/238222/files/4712866/download",
+                    ["oculus-flywheel-compat-1.19.2-0.2.1"] = "https://www.curseforge.com/api/v1/mods/659897/files/4631185/download",
+                    ["oculus-mc1.19.2-1.6.4"] = "https://www.curseforge.com/api/v1/mods/581495/files/4578731/download",
+                    ["rubidium-0.6.2b"] = "https://www.curseforge.com/api/v1/mods/574856/files/4568727/download",
+                    ["starlight-1.1.1+forge.cf5b10b"] = "https://www.curseforge.com/api/v1/mods/526854/files/3836016/download",
                 },
                 ["1.20.1"] = new Dictionary<string, string>()
                 {
@@ -44,6 +47,59 @@ namespace brenman60_s_Modpack_Manager.Scripts
             {
 
             }
+        };
+
+        public static Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, string>>>> modSettingsInfo = new Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, string>>>>()
+        {
+            ["Forge"] = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>()
+            {
+                ["1.19.2"] = new Dictionary<string, Dictionary<string, string>>()
+                {
+                    ["entityculling-forge-1.6.1-mc1.19.2"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Entity Culling",
+                    },
+                    ["fullbrightnesstoggle-1.19.2-3.0"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Full Brightness Toggle",
+                    },
+                    ["jei-1.19.2-forge-11.6.0.1018"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Just Enough Items",
+                    },
+                    ["oculus-flywheel-compat-1.19.2-0.2.1"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Oculus Flywheel Compat",
+                    },
+                    ["oculus-mc1.19.2-1.6.4"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Oculus",
+                    },
+                    ["rubidium-0.6.2b"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Rubidium",
+                    },
+                    ["starlight-1.1.1+forge.cf5b10b"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Starlight",
+                    },
+                },
+                ["1.20.1"] = new Dictionary<string, Dictionary<string, string>>()
+                {
+
+                },
+            },
+            ["Fabric"] = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>()
+            {
+                ["1.19.2"] = new Dictionary<string, Dictionary<string, string>>()
+                {
+
+                },
+                ["1.20.1"] = new Dictionary<string, Dictionary<string, string>>()
+                {
+
+                },
+            },
         };
     }
 }
