@@ -6,9 +6,6 @@ using ModpackManager.Utils;
 
 namespace brenman60_s_Modpack_Manager_Loader
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         FileManager fileManager = new FileManager();
@@ -52,7 +49,8 @@ namespace brenman60_s_Modpack_Manager_Loader
                 fi.Delete();
 
             foreach (DirectoryInfo di in programDirectoryInfo.GetDirectories())
-                Directory.Delete(di.FullName, true);
+                if (di.Name != "mods")
+                    Directory.Delete(di.FullName, true);
 
             // Extract newly downloaded program zip into program directory
             ZipFile.ExtractToDirectory(downloadedProgram, programPath, true);
@@ -148,7 +146,7 @@ namespace brenman60_s_Modpack_Manager_Loader
             {
                 Arguments = "verified",
                 CreateNoWindow = false,
-                FileName = Path.Combine(Directory.GetCurrentDirectory(), "brenman60's Modpack Manager.exe"),
+                FileName = Path.Combine(Directory.GetCurrentDirectory(), "brenman60s Modpack Manager.exe"),
                 WindowStyle = ProcessWindowStyle.Normal,
             };
 

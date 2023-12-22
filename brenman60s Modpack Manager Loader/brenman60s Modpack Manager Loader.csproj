@@ -9,15 +9,23 @@
     <UseWPF>true</UseWPF>
     <BaseOutputPath>..\brenman60s Modpack Manager\Build</BaseOutputPath>
     <PackageId>brenman60s_Modpack_Manager_Loader</PackageId>
+    <ApplicationIcon>bmmuIcon.ico</ApplicationIcon>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="bmmuIcon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ModpackManager\ModpackManager.csproj" />

@@ -1,6 +1,7 @@
 ﻿using brenman60_s_Modpack_Manager.Scripts;
 using brenman60_s_Modpack_Manager.Scripts.Pages;
 using brenman60s_Modpack_Manager.Scripts.Pages;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
@@ -9,9 +10,10 @@ using System.Windows.Media.Animation;
 
 namespace brenman60_s_Modpack_Manager
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /* Window Shell Publish Command (cause publishing is broken on vs for some reason)
+     * dotnet publish "C:\Users\Brennan\source\repos\brenman60s Modpack Manager\brenman60s Modpack Manager\brenman60s Modpack Manager.csproj" --runtime win-x86 --framework net8.0-windows --self-contained true -c Release
+     */
+
     public partial class MainWindow : Window
     {
         public static bool workingJob = false;
@@ -72,6 +74,9 @@ namespace brenman60_s_Modpack_Manager
                     ChangeTabVisiblity(modSettingsContent);
                     pages[2].UpdateStackPanel(modSettingsList);
                     break;
+                case "versionsButton":
+                    ChangeTabVisiblity(versionsContent);
+                    break;
                 default:
                     ChangeTabVisiblity(launcherContent);
                     break;
@@ -93,7 +98,6 @@ namespace brenman60_s_Modpack_Manager
 
             ToggleProgressBar(true);
 
-            // Probably call the reload mods function in the ModManager
             ModManager modManager = new ModManager();
             modManager.ClearMods();
 
@@ -112,6 +116,35 @@ namespace brenman60_s_Modpack_Manager
                     break;
             }
 
+            QuickSave();
+            SwitchTab(activeTab, null);
+        }
+
+        private void SwitchVersion(object sender, RoutedEventArgs e)
+        {
+            if (!CheckIfFree()) return;
+
+            ToggleProgressBar(true);
+
+            ModManager modManager = new ModManager();
+            modManager.ClearMods();
+
+            Button? button = sender as Button;
+            if (button == null) return;
+
+            switch (button.Name)
+            {
+                case "version1192Select":
+                    ModManager.saveData["selectedVersion"] = "1.19.2";
+                    modManager.ReloadMods();
+                    break;
+                case "version1201Select":
+                    ModManager.saveData["selectedVersion"] = "1.20.1";
+                    modManager.ReloadMods();
+                    break;
+            }
+
+            QuickSave();
             SwitchTab(activeTab, null);
         }
 
@@ -122,15 +155,7 @@ namespace brenman60_s_Modpack_Manager
             Button? button = sender as Button;
             if (button == null) return;
 
-            switch (button.Name)
-            {
-                case "modpack1Select":
-                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "modpack1";
-                    break;
-                case "modpack2Select":
-                    ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = "modpack2";
-                    break;
-            }
+            ModManager.modSettings[ModManager.saveData["selectedLoader"]][ModManager.saveData["selectedVersion"]]["selectedModpack"] = button.Name.Replace("Select", string.Empty);
 
             updateMods.Visibility = Visibility.Visible;
         }
@@ -141,7 +166,47 @@ namespace brenman60_s_Modpack_Manager
 
             ModManager manager = new ModManager();
             manager.ReloadMods();
+            QuickSave();
             updateMods.Visibility = Visibility.Hidden;
+        }
+
+        public async void ToggleModSetting(object sender, RoutedEventArgs e)
+        {
+            if (!CheckIfFree()) return;
+
+            workingJob = true;
+            ToggleProgressBar(true);
+
+            TextBlock fileNameText = ((sender as Button).Parent as Grid).Children[1] as TextBlock;
+            Image checkmark = (sender as Button).Content as Image;
+            if (fileNameText == null || checkmark == null) { MessageBox.Show("REMOVE THIS!!!!!!!!!!!!!!!!!!!!!"); return; }
+            bool isOn = checkmark.Visibility == Visibility.Visible;
+
+            string selectedLoader = brenman60_s_Modpack_Manager.Scripts.ModManager.saveData["selectedLoader"];
+            string selectedVersion = brenman60_s_Modpack_Manager.Scripts.ModManager.saveData["selectedVersion"];
+            List<string> activeModSettings = JsonConvert.DeserializeObject<List<string>>(brenman60_s_Modpack_Manager.Scripts.ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"]);
+
+            ModManager modManager = new ModManager();
+            modManager.ClearModSettings(brenman60_s_Modpack_Manager.Scripts.ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"]);
+
+            if (isOn)
+            {
+                activeModSettings.Remove(fileNameText.Text);
+                checkmark.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                activeModSettings.Add(fileNameText.Text);
+                checkmark.Visibility = Visibility.Visible;
+            }
+
+            brenman60_s_Modpack_Manager.Scripts.ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"] = JsonConvert.SerializeObject(activeModSettings);
+
+            await modManager.PlaceSettingMods();
+
+            ToggleProgressBar(false);
+            QuickSave();
+            workingJob = false;
         }
 
         private void ScrollModList(object sender, System.Windows.Input.MouseWheelEventArgs e)
@@ -170,6 +235,16 @@ namespace brenman60_s_Modpack_Manager
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if (workingJob)
+                e.Cancel = true;
+
+            QuickSave();
+
+            Application.Current.Shutdown();
+        }
+
+        private void QuickSave()
         {
             ModManager modManager = new();
             modManager.SaveData();

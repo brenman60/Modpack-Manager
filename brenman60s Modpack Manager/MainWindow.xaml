@@ -76,10 +76,17 @@
             </Grid>
             <!-- Mod Settings Button End -->
 
+            <Grid x:Name="tabVersions" RenderTransformOrigin="0,0.5" Width="Auto">
+                <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
+                <Button x:Name="versionsButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
+                    <TextBlock Text="Versions" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                </Button>
+            </Grid>
+
         </StackPanel>
         <TextBlock x:Name="versionText" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" RenderTransformOrigin="0,1" Width="71" Text="1.0.0" Margin="10,0,0,0" Grid.Column="0" Grid.Row="2"/>
 
-        <Grid x:Name="tabContent" Margin="5,0,0,10" Width="Auto" RenderTransformOrigin="1,0.5" Grid.Column="1">
+        <Grid x:Name="tabContent" Margin="5,0,0,10" Width="Auto" RenderTransformOrigin="1,0.5" Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="73*"></RowDefinition>
                 <RowDefinition Height="9*"></RowDefinition>
@@ -158,7 +165,7 @@
                 </ScrollViewer>
             </Grid>
 
-            <Grid x:Name="modSettingsContent" Visibility="Visible" Loaded="RegisterTab" Grid.RowSpan="2">
+            <Grid x:Name="modSettingsContent" Visibility="Collapsed" Loaded="RegisterTab" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -179,13 +186,60 @@
 
                             <TextBlock x:Name="modSettings0ModItemName" Text="Example Mod" Style="{StaticResource basicText}" Margin="4,3,3,0" FontSize="25" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" VerticalAlignment="Top" Width="Auto" Height="34"/>
                             <TextBlock x:Name="modSettings0ModItemFile" Text="ExampleMod.jar" Style="{StaticResource basicText}" Margin="4,37,3,0" FontSize="15" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" VerticalAlignment="Top" Width="Auto" Height="20"/>
-                            <Button x:Name="modSettings0Check" Margin="0,5,0,5" Style="{StaticResource checkmarkButton}" RenderTransformOrigin="1,0.5" Width="50" HorizontalAlignment="Center" Grid.Column="1" Click="ChangeModpack">
-                                <Image x:Name="modSettings0Checkmark" Visibility="Visible" Source="/img/CheckmarkDarkGray.png" Margin="10, 10, 10, 10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Button x:Name="modSettings0Check" Margin="0,5,0,5" Style="{StaticResource checkmarkButton}" RenderTransformOrigin="1,0.5" Width="50" HorizontalAlignment="Center" Grid.Column="1" Click="ToggleModSetting">
+                                <Image x:Name="modSettings0Checkmark" Visibility="Hidden" Source="/img/CheckmarkDarkGray.png" Margin="10, 10, 10, 10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                             </Button>
 
                             <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
                             <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
                             <Border BorderBrush="{StaticResource selectedColor}" Margin="5, 5, 5, 5" BorderThickness="1" Grid.Column="2" Grid.ColumnSpan="1"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid x:Name="versionsContent" Visibility="Collapsed" Loaded="RegisterTab" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Version" x:Name="versionsTitleText" Style="{StaticResource basicText}" VerticalAlignment="Top" Width="Auto" FontSize="72" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2"/>
+                <Rectangle Margin="222,98,222,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
+                <ScrollViewer x:Name="versionsListScroll" PreviewMouseWheel="ScrollModList" Margin="10,148,10,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel x:Name="versionsList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
+                        <Grid x:Name="version1192" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="173*"/>
+                                <ColumnDefinition Width="45*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="version1192Version" Text="1.19.2" Style="{StaticResource basicText}" FontSize="48" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Center" Width="528" TextAlignment="Center" VerticalAlignment="Center" Height="Auto"/>
+                            <Button x:Name="version1192Select" Margin="6,6,6,6" Style="{StaticResource basicButton}" RenderTransformOrigin="1,0.5" MinWidth="120" Width="Auto" Grid.Column="1" Click="SwitchVersion">
+                                <TextBlock x:Name="version1192SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
+                            </Button>
+
+                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedColor}" Margin="5,6,5,6" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="1"/>
+                        </Grid>
+                        
+                        <Grid x:Name="version1201" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="173*"/>
+                                <ColumnDefinition Width="45*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="version1201Version" Text="1.20.1" Style="{StaticResource basicText}" FontSize="48" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Center" Width="528" TextAlignment="Center" VerticalAlignment="Center" Height="Auto"/>
+                            <Button x:Name="version1201Select" Margin="6,6,6,6" Style="{StaticResource basicButton}" RenderTransformOrigin="1,0.5" MinWidth="120" Width="Auto" Grid.Column="1" Click="SwitchVersion">
+                                <TextBlock x:Name="version1201SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
+                            </Button>
+
+                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedColor}" Margin="5,6,5,6" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="1"/>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -226,7 +227,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             return modpack0Item;
         }
 
-        public static Grid CreateModSettingItem(string modId, string modName, string modFile)
+        public static Grid CreateModSettingItem(string modId, string modName, string modFile, bool isOn)
         {
             MainWindow? mainWindow = Application.Current.MainWindow as MainWindow;
             if (mainWindow == null) return null;
@@ -288,7 +289,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             Image modSettings0Checkmark = new Image
             {
                 Name = modId + "Checkmark",
-                Visibility = Visibility.Visible,
+                Visibility = isOn ? Visibility.Visible : Visibility.Hidden,
                 Source = new BitmapImage(new Uri("/img/CheckmarkDarkGray.png", UriKind.Relative)),
                 Margin = new Thickness(10, 10, 10, 10),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -320,6 +321,8 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             };
             Grid.SetColumn(border3, 2);
             Grid.SetColumnSpan(border3, 1);
+
+            modSettings0Check.Click += mainWindow.ToggleModSetting;
 
             modSettings0Item.Children.Add(modSettings0ModItemName);
             modSettings0Item.Children.Add(modSettings0ModItemFile);

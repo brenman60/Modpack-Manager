@@ -11,7 +11,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
 
             foreach (Dictionary<string, object> modpack in ModpackManager.modpacks)
             {
-                if (modpack["loader"].ToString() == ModManager.saveData["selectedLoader"])
+                if (modpack["loader"].ToString() == ModManager.saveData["selectedLoader"] && modpack["version"].ToString() == ModManager.saveData["selectedVersion"])
                 {
                     List<string> modAmount_ = modpack["mods"] as List<string>;
                     int modAmount = modAmount_.Count;

@@ -10,14 +10,18 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <BaseOutputPath>..\brenman60s Modpack Manager\Build</BaseOutputPath>
     <PackageId>brenman60s_Modpack_Manager</PackageId>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>embedded</DebugType>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,11 +32,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\brenman60's Modpack Manager Loader\brenman60's Modpack Manager Loader.csproj" />
+    <ProjectReference Include="..\brenman60s Modpack Manager Loader\brenman60s Modpack Manager Loader.csproj" />
     <ProjectReference Include="..\ModpackManager\ModpackManager.csproj" />
   </ItemGroup>
 

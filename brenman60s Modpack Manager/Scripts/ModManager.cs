@@ -76,6 +76,12 @@ namespace brenman60_s_Modpack_Manager.Scripts
             string selectedModpack = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["selectedModpack"];
             string selectedMods = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["modSettings"];
 
+            ClearModpackMods(selectedModpack);
+            ClearModSettings(selectedMods);
+        }
+
+        public void ClearModpackMods(string selectedModpack)
+        {
             if (selectedModpack != "None")
             {
                 foreach (Dictionary<string, object> modpack in ModpackManager.modpacks)
@@ -88,7 +94,10 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     }
                 }
             }
+        }
 
+        public void ClearModSettings(string selectedMods)
+        {
             List<string> includedMods = JsonConvert.DeserializeObject<List<string>>(selectedMods);
             foreach (string mod in includedMods)
             {
@@ -99,7 +108,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
         }
 
         // Copy the mods from the currently selected modpack into the mods folder
-        private async Task<bool> PlaceModpackMods()
+        public async Task<bool> PlaceModpackMods()
         {
             string selectedModpack_ = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["selectedModpack"];
             if (selectedModpack_ != "None")
@@ -142,7 +151,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
         }
 
         // Copy the mods enabled in the settings into the mods folder
-        private async Task<bool> PlaceSettingMods()
+        public async Task<bool> PlaceSettingMods()
         {
             string selectedMods = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["modSettings"];
             List<string>? includedMods = JsonConvert.DeserializeObject<List<string>>(selectedMods);
@@ -163,9 +172,14 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     if (downloadedPath == null) continue;
 
                     ((MainWindow)App.Current.MainWindow).ChangeProgressText("Configuring " + mod + ".jar...");
-                    File.Copy(downloadedPath, Path.Combine(modStashPath, mod + ".jar"));
-                    File.Copy(downloadedPath, Path.Combine(SettingsManager.settings["modsPath"], mod));
+                    if (!File.Exists(Path.Combine(modStashPath, mod + ".jar")))
+                        File.Copy(downloadedPath, Path.Combine(modStashPath, mod + ".jar"));
+
+                    if (!File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
+                        File.Copy(downloadedPath, Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
+
                     File.Delete(downloadedPath);
+
                 }
             }
 
