@@ -7,7 +7,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <BaseOutputPath>..\brenman60s Modpack Manager\Build</BaseOutputPath>
     <PackageId>brenman60s_Modpack_Manager</PackageId>
     <ApplicationIcon>icon.ico</ApplicationIcon>

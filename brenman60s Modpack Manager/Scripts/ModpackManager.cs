@@ -83,7 +83,6 @@
                     "1.20.1-create_oppenheimered-1.0.0",
                     "alexscaves-1.0.9",
                     "architectury-9.1.12-forge",
-                    "BetterAdvancements-1.20.1-0.3.2.161",
                     "cccbridge-mc1.20.1-forge-1.6.3",
                     "cc-tweaked-1.20.1-forge-1.108.4",
                     "citadel-2.4.9-1.20.1",

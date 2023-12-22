@@ -59,9 +59,8 @@ namespace brenman60_s_Modpack_Manager.Scripts
             ((MainWindow)App.Current.MainWindow).ToggleProgressBar(true);
             ClearMods();
             Task<bool> placeModpack = PlaceModpackMods();
-            Task<bool> placeSettingMods = PlaceSettingMods();
-
             await placeModpack;
+            Task<bool> placeSettingMods = PlaceSettingMods();
             await placeSettingMods;
 
             ((MainWindow)App.Current.MainWindow).ToggleProgressBar(false);

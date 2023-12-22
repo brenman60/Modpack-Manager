@@ -162,6 +162,10 @@
                 },
                 ["1.20.1"] = new Dictionary<string, Dictionary<string, string>>()
                 {
+                    ["BetterAdvancements-1.20.1-0.3.2.161"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Better Advancements",
+                    },
                     ["jei-1.20.1-forge-15.2.0.27"] = new Dictionary<string, string>()
                     {
                         ["modName"] = "Just Enough Items",

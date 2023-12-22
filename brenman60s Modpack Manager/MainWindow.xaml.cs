@@ -10,8 +10,12 @@ using System.Windows.Media.Animation;
 
 namespace brenman60_s_Modpack_Manager
 {
-    /* Window Shell Publish Command (cause publishing is broken on vs for some reason)
-     * dotnet publish "C:\Users\Brennan\source\repos\brenman60s Modpack Manager\brenman60s Modpack Manager\brenman60s Modpack Manager.csproj" --runtime win-x86 --framework net8.0-windows --self-contained true -c Release
+    /* Window Shell Publish Command 1
+     dotnet publish "C:\Users\Brennan\source\repos\brenman60s Modpack Manager\brenman60s Modpack Manager\brenman60s Modpack Manager.csproj" --runtime win-x86 --framework net8.0-windows --self-contained true -c Release -p:PublishSingleFile=true
+     */
+
+    /* Window Shell Publish Command 2 (1 MUST BE DONE FIRST)
+     dotnet publish "C:\Users\Brennan\source\repos\brenman60s Modpack Manager\brenman60s Modpack Manager Loader\brenman60s Modpack Manager Loader.csproj" --runtime win-x86 --framework net8.0-windows --self-contained true -c Release -p:PublishSingleFile=true
      */
 
     public partial class MainWindow : Window

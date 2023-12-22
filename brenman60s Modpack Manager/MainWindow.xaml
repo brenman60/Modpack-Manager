@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:brenman60_s_Modpack_Manager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1050"
+        Title="brenman60's Mod Manager" Height="600" Width="1050"
         MinHeight="600"
         MinWidth="1050"
         MaxWidth="1550"
