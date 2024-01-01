@@ -1,4 +1,6 @@
-﻿namespace brenman60_s_Modpack_Manager.Scripts
+﻿using System.ComponentModel;
+
+namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class Mods
     {
@@ -117,6 +119,18 @@
                     ["YungsBetterWitchHuts-1.20-Forge-3.0.3"] = "https://www.curseforge.com/api/v1/mods/631401/files/4769489/download",
                     ["YungsExtras-1.20-Forge-4.0.3"] = "https://www.curseforge.com/api/v1/mods/480006/files/4769514/download",
                     ["YungsMenuTweaks-1.20.1-Forge-1.0.1"] = "https://www.curseforge.com/api/v1/mods/917285/files/4836758/download",
+                    ["fast-ip-ping-mc1.20.4-forge-v1.0.1"] = "https://www.curseforge.com/api/v1/mods/904356/files/4976608/download",
+                    ["mimimod-1.20.1-3.1.1"] = "https://www.curseforge.com/api/v1/mods/499803/files/4681069/download",
+                    ["Patchouli-1.20.1-84-FORGE"] = "https://www.curseforge.com/api/v1/mods/306770/files/4966125/download",
+                    ["voicechat-forge-1.20.1-2.4.32"] = "https://www.curseforge.com/api/v1/mods/416089/files/4961385/download",
+                    ["bobberdetector-0.1.9-1.20.1"] = "https://www.curseforge.com/api/v1/mods/897858/files/4882228/download",
+                    ["create_villagerology-1.20.1-b"] = "https://www.curseforge.com/api/v1/mods/916864/files/4772277/download",
+                    ["createframed-1.20.1-1.2"] = "https://www.curseforge.com/api/v1/mods/953126/files/4983451/download",
+                    ["create_interactive-1201-forge-1.0.2-beta.1"] = "https://cdn.modrinth.com/data/MyfCcqiE/versions/yOGq6nz8/create_interactive-1201-forge-1.0.2-beta.1.jar",
+                    ["kotlinforforge-4.8.0-all"] = "https://www.curseforge.com/api/v1/mods/351264/files/4927839/download",
+                    ["valkyrienskies-120-2.1.3-beta.1"] = "https://www.curseforge.com/api/v1/mods/258371/files/4998346/download",
+
+                    ["brenman60server-1.0.0"] = "https://dl.dropboxusercontent.com/scl/fi/bq8ji6zqwz3e03w3a6c42/brenman60server-1.0.0.jar?rlkey=snoqzez41hcmye1wqrku272oe&dl=0",
                 },
             },
             ["Fabric"] = new Dictionary<string, Dictionary<string, string>>()
@@ -162,6 +176,10 @@
                 },
                 ["1.20.1"] = new Dictionary<string, Dictionary<string, string>>()
                 {
+                    ["fast-ip-ping-mc1.20.4-forge-v1.0.1"] = new Dictionary<string, string>()
+                    {
+                        ["modName"] = "Fast IP Ping",
+                    },
                     ["BetterAdvancements-1.20.1-0.3.2.161"] = new Dictionary<string, string>()
                     {
                         ["modName"] = "Better Advancements",

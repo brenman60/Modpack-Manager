@@ -133,6 +133,14 @@
                     "YungsBetterOceanMonuments-1.20-Forge-3.0.3",
                     "YungsBetterStrongholds-1.20-Forge-4.0.3",
                     "YungsBetterWitchHuts-1.20-Forge-3.0.3",
+                    "mimimod-1.20.1-3.1.1",
+                    "Patchouli-1.20.1-84-FORGE",
+                    "bobberdetector-0.1.9-1.20.1",
+                    "create_villagerology-1.20.1-b",
+                    "createframed-1.20.1-1.2",
+                    "create_interactive-1201-forge-1.0.2-beta.1",
+                    "kotlinforforge-4.8.0-all",
+                    "valkyrienskies-120-2.1.3-beta.1",
                 },
             },
         };
@@ -187,6 +195,7 @@
                         "oculus-flywheel-compat-1.20.1-0.2.0",
                         "YungsExtras-1.20-Forge-4.0.3",
                         "YungsMenuTweaks-1.20.1-Forge-1.0.1",
+                        "fast-ip-ping-mc1.20.4-forge-v1.0.1",
                     },
                     ["Performance Mods"] = new List<string>()
                     {
