@@ -139,7 +139,6 @@
                     "create_villagerology-1.20.1-b",
                     "createframed-1.20.1-1.2",
                     "create_interactive-1201-forge-1.0.2-beta.1",
-                    "kotlinforforge-4.8.0-all",
                     "valkyrienskies-120-2.1.3-beta.1",
                 },
             },

@@ -113,11 +113,11 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
                 dict.Add(key, defaultValue);
         }
 
-        public void UpdateStackPanel(StackPanel list)
+        public async void UpdateStackPanel(StackPanel list)
         {
             list.Children.Clear();
 
-            List<string> mods = GetAllMods();
+            List<string> mods = await Task.Run(GetAllMods);
             foreach (string mod in mods)
             {
                 Dictionary<string, string>? modInfo = JsonConvert.DeserializeObject<Dictionary<string, string>>(mod);
