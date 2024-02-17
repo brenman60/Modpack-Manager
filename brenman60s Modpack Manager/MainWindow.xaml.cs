@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace brenman60_s_Modpack_Manager
@@ -186,12 +187,12 @@ namespace brenman60_s_Modpack_Manager
             if (fileNameText == null || checkmark == null) { MessageBox.Show("REMOVE THIS!!!!!!!!!!!!!!!!!!!!!"); return; }
             bool isOn = checkmark.Visibility == Visibility.Visible;
 
-            string selectedLoader = brenman60_s_Modpack_Manager.Scripts.ModManager.saveData["selectedLoader"];
-            string selectedVersion = brenman60_s_Modpack_Manager.Scripts.ModManager.saveData["selectedVersion"];
-            List<string> activeModSettings = JsonConvert.DeserializeObject<List<string>>(brenman60_s_Modpack_Manager.Scripts.ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"]);
+            string selectedLoader = ModManager.saveData["selectedLoader"];
+            string selectedVersion = ModManager.saveData["selectedVersion"];
+            List<string> activeModSettings = JsonConvert.DeserializeObject<List<string>>(ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"]);
 
             ModManager modManager = new ModManager();
-            modManager.ClearModSettings(brenman60_s_Modpack_Manager.Scripts.ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"]);
+            modManager.ClearModSettings(ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"]);
 
             if (isOn)
             {
@@ -204,7 +205,7 @@ namespace brenman60_s_Modpack_Manager
                 checkmark.Visibility = Visibility.Visible;
             }
 
-            brenman60_s_Modpack_Manager.Scripts.ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"] = JsonConvert.SerializeObject(activeModSettings);
+            ModManager.modSettings[selectedLoader][selectedVersion]["modSettings"] = JsonConvert.SerializeObject(activeModSettings);
 
             await modManager.PlaceSettingMods();
 
@@ -218,7 +219,7 @@ namespace brenman60_s_Modpack_Manager
             float speed = 1f;
             ScrollViewer? scrollViewer = sender as ScrollViewer;
             if (scrollViewer == null) return;
-            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - e.Delta * (0.01 * speed));
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - (e.Delta * (0.01 * speed)) / 1f);
             e.Handled = true;
         }
 
@@ -252,6 +253,24 @@ namespace brenman60_s_Modpack_Manager
         {
             ModManager modManager = new();
             modManager.SaveData();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            if (workingJob) return;
+
+            Application.Current.Shutdown();
+        }
+
+        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

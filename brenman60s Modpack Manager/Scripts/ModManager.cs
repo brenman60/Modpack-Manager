@@ -1,6 +1,7 @@
 ﻿using ModpackManager.Utils;
 using Newtonsoft.Json;
 using System.IO;
+using System.Windows;
 
 namespace brenman60_s_Modpack_Manager.Scripts
 {
@@ -57,7 +58,7 @@ namespace brenman60_s_Modpack_Manager.Scripts
         {
             MainWindow.workingJob = true;
             ((MainWindow)App.Current.MainWindow).ToggleProgressBar(true);
-            ClearMods();
+            await ClearMods();
             Task<bool> placeModpack = PlaceModpackMods();
             await placeModpack;
             Task<bool> placeSettingMods = PlaceSettingMods();
@@ -68,29 +69,37 @@ namespace brenman60_s_Modpack_Manager.Scripts
         }
 
         // Delete or move all the current mods in the mods folder
-        public void ClearMods()
+        public async Task ClearMods()
         {
             // Loop through the currently enabled modpacks' mods and delete it (as it still exists in the mod stash)
             // Then loop through the enabled mod settings' mods and delete it (as it still exists in the mod stash)
             string selectedModpack = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["selectedModpack"];
             string selectedMods = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["modSettings"];
 
-            ClearModpackMods(selectedModpack);
+            await ClearModpackMods(selectedModpack);
             ClearModSettings(selectedMods);
         }
 
-        public void ClearModpackMods(string selectedModpack)
+        public async Task ClearModpackMods(string selectedModpack)
         {
             if (selectedModpack != "None")
             {
-                foreach (Dictionary<string, object> modpack in ModpackManager.modpacks)
+                Downloader downloader = new Downloader();
+                FileManager fileManager = new FileManager();
+                string modpacksRaw = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.ModpacksList], new Progress<int>(), ".txt"));
+                List<Dictionary<string, object>> modpacks = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(modpacksRaw);
+
+                foreach (Dictionary<string, object> modpack in modpacks)
                 {
-                    foreach (string mod in modpack["mods"] as List<string>)
-                    {
-                        ((MainWindow)App.Current.MainWindow).ChangeProgressText("Checking " + mod + ".jar...");
-                        if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
-                            File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
-                    }
+                    string modsRaw = fileManager.ReadFile(await downloader.DownloadFile(modpack["mods"].ToString(), new Progress<int>(), ".txt"));
+                    if (modsRaw != null)
+                        if (modsRaw.Trim() != string.Empty)
+                            foreach (string mod in JsonConvert.DeserializeObject<List<string>>(modsRaw))
+                            {
+                                ((MainWindow)App.Current.MainWindow).ChangeProgressText("Checking " + mod + ".jar...");
+                                if (File.Exists(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar")))
+                                    File.Delete(Path.Combine(SettingsManager.settings["modsPath"], mod + ".jar"));
+                            }
                 }
             }
         }
@@ -112,14 +121,23 @@ namespace brenman60_s_Modpack_Manager.Scripts
             string selectedModpack_ = modSettings[saveData["selectedLoader"]][saveData["selectedVersion"]]["selectedModpack"];
             if (selectedModpack_ != "None")
             {
+                Downloader downloader = new Downloader();
+                FileManager fileManager = new FileManager();
+                string modpacksRaw = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.ModpacksList], new Progress<int>(), ".txt"));
+                List<Dictionary<string, object>> modpacks = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(modpacksRaw);
+
                 Dictionary<string, object>? selectedModpack = null;
-                foreach (Dictionary<string, object> modpack in ModpackManager.modpacks)
+                foreach (Dictionary<string, object> modpack in modpacks)
                     if (modpack["id"].ToString() == selectedModpack_)
                         selectedModpack = modpack;
 
                 if (selectedModpack == null) return false;
 
-                List<string>? mods = selectedModpack["mods"] as List<string>;
+                string modsRaw = fileManager.ReadFile(await downloader.DownloadFile(selectedModpack["mods"].ToString(), new Progress<int>(), ".txt"));
+                if (modsRaw == null) return false;
+                else if (modsRaw.Trim() == string.Empty) return false;
+
+                List<string>? mods = JsonConvert.DeserializeObject<List<string>>(modsRaw);
                 if (mods == null) return false;
 
                 foreach (string mod in mods)
@@ -131,9 +149,19 @@ namespace brenman60_s_Modpack_Manager.Scripts
                     }
                     else
                     {
+                        Progress<int> progress = new Progress<int>(percentage =>
+                        {
+                            if (Application.Current.MainWindow is MainWindow mainWindow)
+                            {
+                                ((MainWindow)App.Current.MainWindow).ChangeProgressText("Downloading " + mod + ".jar... " + percentage + "%");
+                                mainWindow.downloadProgressBar.Value = percentage;
+                                mainWindow.downloadProgressBar.Maximum = 100;
+                            }
+                        });
+
                         ((MainWindow)App.Current.MainWindow).ChangeProgressText("Downloading " + mod + ".jar...");
                         string downloadLink = Mods.directDownloads[saveData["selectedLoader"]][saveData["selectedVersion"]][mod];
-                        string? downloadedPath = await downloader.DownloadFile(downloadLink, ".jar");
+                        string? downloadedPath = await downloader.DownloadFile(downloadLink, progress, ".jar");
                         if (downloadedPath == null) continue;
 
                         ((MainWindow)App.Current.MainWindow).ChangeProgressText("Configuring " + mod + ".jar...");
@@ -165,9 +193,19 @@ namespace brenman60_s_Modpack_Manager.Scripts
                 }
                 else
                 {
+                    Progress<int> progress = new Progress<int>(percentage =>
+                    {
+                        if (Application.Current.MainWindow is MainWindow mainWindow)
+                        {
+                            ((MainWindow)App.Current.MainWindow).ChangeProgressText("Downloading " + mod + ".jar... " + percentage + "%");
+                            mainWindow.downloadProgressBar.Value = percentage;
+                            mainWindow.downloadProgressBar.Maximum = 100;
+                        }
+                    });
+
                     ((MainWindow)App.Current.MainWindow).ChangeProgressText("Downloading " + mod + ".jar...");
                     string downloadLink = Mods.directDownloads[saveData["selectedLoader"]][saveData["selectedVersion"]][mod];
-                    string? downloadedPath = await downloader.DownloadFile(downloadLink, ".jar");
+                    string? downloadedPath = await downloader.DownloadFile(downloadLink, progress, ".jar");
                     if (downloadedPath == null) continue;
 
                     ((MainWindow)App.Current.MainWindow).ChangeProgressText("Configuring " + mod + ".jar...");

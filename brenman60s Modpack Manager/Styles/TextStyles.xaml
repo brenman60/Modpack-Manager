@@ -3,6 +3,7 @@
 
     <Style x:Key="basicText" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Yu Gothic UI Semibold"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
     </Style>
     
 </ResourceDictionary>

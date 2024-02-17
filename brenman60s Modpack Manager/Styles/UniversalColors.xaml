@@ -1,31 +1,41 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="baseColor" Color="#FF616161"/>
-    <SolidColorBrush x:Key="hoverColor" Color="#FF545454"/>
-    <SolidColorBrush x:Key="selectedColor" Color="#FF464646"/>
-
-    <SolidColorBrush x:Key="baseColor2" Color="#FF5A5A5A"/>
-    <SolidColorBrush x:Key="hoverColor2" Color="#FF565656"/>
-    <SolidColorBrush x:Key="selectedColor2" Color="#FF505050"/>
-
-    <SolidColorBrush x:Key="baseColor3" Color="#FF646464"/>
-    
     <SolidColorBrush x:Key="checkmarkBaseColor" Color="#FF5A5A5A"/>
     <SolidColorBrush x:Key="checkmarkHoverColor" Color="#FF565656"/>
     <SolidColorBrush x:Key="checkmarkSelectedColor" Color="#FF505050"/>
 
+    <SolidColorBrush x:Key="baseButtonColor" Color="#7F151515"/>
+    <SolidColorBrush x:Key="hoverButtonColor" Color="#A5151515"/>
+    <SolidColorBrush x:Key="selectedButtonColor" Color="#CC151515"/>
+
     <LinearGradientBrush x:Key="tabBaseColor">
-        <GradientStop Color="#FF616161" Offset="1"/>
-        <GradientStop Color="#FF545454" Offset="0"/>
+        <GradientStop Color="#7F252525" Offset="1"/>
+        <GradientStop Color="#7F151515" Offset="0"/>
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="tabHoverColor">
-        <GradientStop Color="#FF616161" Offset="1"/>
-        <GradientStop Color="#FF545454" Offset="0.5"/>
+        <GradientStop Color="#7F252525" Offset="1"/>
+        <GradientStop Color="#7F151515" Offset="0.5"/>
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="tabSelectedColor">
-        <GradientStop Color="#FF616161" Offset="1"/>
-        <GradientStop Color="#FF545454" Offset="0.75"/>
+        <GradientStop Color="#7F252525" Offset="1"/>
+        <GradientStop Color="#7F151515" Offset="0.75"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="borderBaseColor" Color="White"/>
+    <SolidColorBrush x:Key="secondaryBorderBaseColor" Color="#33FFFFFF"/>
+    <LinearGradientBrush x:Key="tabBorderBaseColor">
+        <GradientStop Color="Transparent" Offset="1"/>
+        <GradientStop Color="White" Offset="0"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="tabBorderHoverColor">
+        <GradientStop Color="Transparent" Offset="1"/>
+        <GradientStop Color="White" Offset="0.5"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="tabButtonText">
+        <GradientStop Color="#FF8C8C8C" Offset="1"/>
+        <GradientStop Color="White" Offset="0"/>
     </LinearGradientBrush>
 
 </ResourceDictionary>

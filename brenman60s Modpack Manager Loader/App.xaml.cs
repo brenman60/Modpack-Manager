@@ -41,7 +41,16 @@ namespace brenman60_s_Modpack_Manager_Loader
         async void DownloadLatestProgram(string programPath)
         {
             // Download program as zip
-            string downloadedProgram = await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersion], ".zip");
+            Progress<int> progress = new Progress<int>(percentage =>
+            {
+                if (Application.Current.MainWindow is MainWindow mainWindow)
+                {
+                    mainWindow.SetProgressBar(percentage, 100);
+                    mainWindow.SetText("Updating... " + percentage + "%");
+                }
+            });
+
+            string downloadedProgram = await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersion], progress, ".zip");
 
             // Remove all files in program path
             DirectoryInfo programDirectoryInfo = new DirectoryInfo(programPath);
@@ -75,7 +84,7 @@ namespace brenman60_s_Modpack_Manager_Loader
             // If there isn't an update, start the main program with args
             // If there is an update, copy this exe into a sub folder, stop this current program, and start the copied version with args to make this if statement true
             string? currentVersion = fileManager.ReadFile(FileManager.versionFilePath);
-            string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText]));
+            string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText], new Progress<int>()));
             if (latestVersion == null)
             {
                 StartMain();
@@ -85,7 +94,7 @@ namespace brenman60_s_Modpack_Manager_Loader
             if (currentVersion.Trim() != latestVersion.Trim())
             {
                 // Program really doesn't techincally need to be up to date at all times, so it can be a choice
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Update now?", "A new version is available", System.Windows.MessageBoxButton.YesNo);
+                MessageBoxResult messageBoxResult = MessageBox.Show("Update now?", "A new version is available", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
                     // If there is a new version available
@@ -135,7 +144,7 @@ namespace brenman60_s_Modpack_Manager_Loader
         async void FirstTimeDownload()
         {
             // Version file doesn't exist, so this is probably a first time startup, so just download the newest version file and open the program
-            string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText]));
+            string? latestVersion = fileManager.ReadFile(await downloader.DownloadFile(FileManager.downloadLinks[DownloadLink.LatestVersionText], new Progress<int>()));
             bool written = await fileManager.WriteToFile(FileManager.versionFilePath, latestVersion);
             StartMain();
         }

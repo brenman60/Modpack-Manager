@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace brenman60_s_Modpack_Manager.Scripts
+﻿namespace brenman60_s_Modpack_Manager.Scripts
 {
     public static class Mods
     {

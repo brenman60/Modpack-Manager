@@ -6,7 +6,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="basicButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource baseColor}"/>
+        <Setter Property="Background" Value="{StaticResource baseButtonColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
 
         <Setter Property="Template">
@@ -21,11 +21,11 @@
         
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource hoverColor}"/>
+                <Setter Property="Background" Value="{StaticResource hoverButtonColor}"/>
             </Trigger>
 
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource selectedColor}"/>
+                <Setter Property="Background" Value="{StaticResource selectedButtonColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -80,8 +80,19 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="tabButtonBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource tabBorderBaseColor}"/>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource tabBorderHoverColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="loaderButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource baseColor2}"/>
+        <Setter Property="Background" Value="{StaticResource baseButtonColor}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -95,11 +106,11 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource hoverColor2}"/>
+                <Setter Property="Background" Value="{StaticResource hoverButtonColor}"/>
             </Trigger>
 
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource selectedColor2}"/>
+                <Setter Property="Background" Value="{StaticResource selectedButtonColor}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

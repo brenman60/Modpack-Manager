@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -18,7 +17,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
                 Name = modId + "ModItem",
                 Height = 100,
                 Width = double.NaN,
-                Background = (Brush)mainWindow.FindResource("hoverColor2"),
+                Background = (Brush)mainWindow.FindResource("baseButtonColor"),
                 Margin = new Thickness(15, 5, 15, 5),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
             };
@@ -66,8 +65,8 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
 
             Border border1 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
-                BorderThickness = new Thickness(2),
+                BorderBrush = (Brush)mainWindow.FindResource("borderBaseColor"),
+                BorderThickness = new Thickness(1),
             };
             Grid.SetColumnSpan(border1, 2);
 
@@ -89,7 +88,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
                 Name = modpackId + "Item",
                 Height = 100,
                 Width = double.NaN,
-                Background = (Brush)mainWindow.FindResource("hoverColor2"),
+                Background = (Brush)mainWindow.FindResource("hoverButtonColor"),
                 Margin = new Thickness(15, 5, 15, 5),
                 Visibility = Visibility.Visible
             };
@@ -148,7 +147,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             {
                 Name = modpackId + "Select",
                 Margin = new Thickness(6, 32, 6, 10),
-                Style = (Style)mainWindow.FindResource("basicButton"),
+                Style = (Style)mainWindow.FindResource("tabButton"),
                 RenderTransformOrigin = new Point(1, 0.5),
                 MinWidth = 120,
                 Width = double.NaN,
@@ -190,22 +189,22 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
 
             Border border1 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
-                BorderThickness = new Thickness(2),
+                BorderBrush = (Brush)mainWindow.FindResource("tabBorderBaseColor"),
+                BorderThickness = new Thickness(1),
             };
             Grid.SetColumnSpan(border1, 2);
 
             Border border2 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
-                BorderThickness = new Thickness(2),
+                BorderBrush = (Brush)mainWindow.FindResource("secondaryBorderBaseColor"),
+                BorderThickness = new Thickness(1),
             };
             Grid.SetColumnSpan(border2, 1);
             Grid.SetColumn(border2, 2);
 
             Border border3 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor"),
+                BorderBrush = (Brush)mainWindow.FindResource("borderBaseColor"),
                 BorderThickness = new Thickness(1),
                 Margin = new Thickness(5, 32, 5, 10),
             };
@@ -237,7 +236,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
                 Name = modId + "Item",
                 Height = 60,
                 Width = double.NaN,
-                Background = (Brush)mainWindow.FindResource("hoverColor2"),
+                Background = (Brush)mainWindow.FindResource("hoverButtonColor"),
                 Margin = new Thickness(15, 5, 15, 5),
                 Visibility = Visibility.Visible
             };
@@ -279,7 +278,7 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
             {
                 Name = modId + "Check",
                 Margin = new Thickness(0, 5, 0, 5),
-                Style = (Style)mainWindow.FindResource("checkmarkButton"),
+                Style = (Style)mainWindow.FindResource("tabButton"),
                 RenderTransformOrigin = new Point(1, 0.5),
                 Width = 50,
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -300,22 +299,22 @@ namespace brenman60_s_Modpack_Manager.Scripts.Pages
 
             Border border1 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
-                BorderThickness = new Thickness(2),
+                BorderBrush = (Brush)mainWindow.FindResource("selectedButtonColor"),
+                BorderThickness = new Thickness(1),
             };
             Grid.SetColumnSpan(border1, 2);
 
             Border border2 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor2"),
-                BorderThickness = new Thickness(2),
+                BorderBrush = (Brush)mainWindow.FindResource("selectedButtonColor"),
+                BorderThickness = new Thickness(1),
             };
             Grid.SetColumn(border2, 2);
             Grid.SetColumnSpan(border2, 1);
 
             Border border3 = new Border
             {
-                BorderBrush = (Brush)mainWindow.FindResource("selectedColor"),
+                BorderBrush = (Brush)mainWindow.FindResource("tabBorderBaseColor"),
                 Margin = new Thickness(5, 5, 5, 5),
                 BorderThickness = new Thickness(1),
             };

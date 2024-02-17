@@ -8,11 +8,13 @@
         Title="brenman60's Mod Manager" Height="600" Width="1050"
         MinHeight="600"
         MinWidth="1050"
-        MaxWidth="1550"
-        MaxHeight="700"
+        MaxWidth="1050"
+        MaxHeight="600"
         SizeToContent="Width"
-        ResizeMode="CanResize"
-        Background="Transparent">
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        BorderThickness="1">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,70 +25,97 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.BorderBrush>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF676767"/>
+            <GradientStop Color="White" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.BorderBrush>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF292929"/>
+            <GradientStop Color="#FF171717" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
 
-    <Grid Background="#FF616161" x:Name="mainContent">
+    <Grid x:Name="mainContent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="61*"/>
             <ColumnDefinition Width="149*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition x:Name="taskBarButtonsRow" Height="42"/>
             <RowDefinition x:Name="mainContentRow" Height="12*"/>
             <RowDefinition x:Name="updateModsRow" Height="1.5*"/>
             <RowDefinition x:Name="moreInfoRow" Height="1.2*"/>
             <RowDefinition x:Name="progressBarRow" Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="updateMods" Grid.Column="0" MinHeight="40" MaxHeight="40" Margin="15,0,15,0" Background="{StaticResource hoverColor2}" Visibility="Hidden" Panel.ZIndex="20" Grid.Row="1" VerticalAlignment="Center">
+        <StackPanel x:Name="taskbarButton" MouseDown="Window_MouseDown" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" AutomationProperties.IsRowHeader="True" AutomationProperties.IsColumnHeader="True" FlowDirection="RightToLeft" Orientation="Horizontal" Margin="0,5,0,5" Background="#00000000">
+            <Border BorderThickness="1" BorderBrush="{StaticResource borderBaseColor}" Margin="5,0,5,0">
+                <Button x:Name="close_TaskbarButton" Height="Auto" Width="30" Style="{StaticResource tabButton}" Click="CloseWindow">
+                    <TextBlock Text="X" Style="{StaticResource basicText}" FontSize="45" TextWrapping="Wrap" RenderTransformOrigin="1,0.5" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Height="54" TextAlignment="Center" FlowDirection="RightToLeft" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontFamily="Microsoft Yi Baiti"/>
+                </Button>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="{StaticResource borderBaseColor}" Margin="5,0,5,0">
+                <Button x:Name="minimize_TaskbarButton" Height="Auto" Width="30" Style="{StaticResource tabButton}" Click="MinimizeWindow">
+                    <Border BorderBrush="{x:Null}">
+                        <TextBlock Text="-" Style="{StaticResource basicText}" FontSize="45" TextWrapping="Wrap" RenderTransformOrigin="1,0.5" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Height="58" TextAlignment="Center" FlowDirection="RightToLeft" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontFamily="Microsoft Yi Baiti"/>
+                    </Border>
+                </Button>
+            </Border>
+        </StackPanel>
+
+        <Grid x:Name="updateMods" Grid.Column="0" MinHeight="40" MaxHeight="40" Margin="15,0,15,0" Background="{StaticResource hoverButtonColor}" Visibility="Hidden" Panel.ZIndex="20" Grid.Row="2" VerticalAlignment="Center">
             <TextBlock Text="Settings Changed" x:Name="updateModsText" Style="{StaticResource basicText}" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" FontSize="20" TextAlignment="Center" RenderTransformOrigin="0.5,0" Padding="0,0,0,2" Height="Auto" Margin="5,0,0,0" TextWrapping="Wrap"/>
             <Button x:Name="updateModsButton" Margin="200,4,4,4" Style="{StaticResource basicButton}" RenderTransformOrigin="1,0.5" Width="Auto" Click="ReloadMods">
                 <TextBlock x:Name="updateModsButtonText" Text="Reload" Style="{StaticResource basicText}" FontSize="20" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="72" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="4, 0, 4, 0" Height="26"/>
             </Button>
-            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
-            <Border BorderBrush="{StaticResource selectedColor}" Margin="200, 4, 4, 4" BorderThickness="1"/>
+            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.ColumnSpan="2"/>
+            <Border BorderBrush="{StaticResource selectedButtonColor}" Margin="200, 4, 4, 4" BorderThickness="1"/>
         </Grid>
 
-        <StackPanel x:Name="tabList" RenderTransformOrigin="0,0.5" Width="Auto" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch">
-            <TextBlock x:Name="titleText" Height="Auto" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager" Margin="15,5,15,2"/>
-            <Rectangle x:Name="divider1" Height="10" Style="{StaticResource smallDivider}" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto" HorizontalAlignment="Stretch"/>
+        <StackPanel x:Name="tabList" RenderTransformOrigin="0,0.5" Width="Auto" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch">
+            <TextBlock x:Name="titleText" Foreground="{StaticResource tabButtonText}" Height="Auto" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" RenderTransformOrigin="0.5,0" HorizontalAlignment="Stretch" Width="Auto" Text="brenman60's Modpack Manager" Margin="15,5,15,2"/>
+            <Rectangle x:Name="divider1" Height="10" Style="{StaticResource smallDivider}" Visibility="Hidden" Margin="10,15,10,14" RenderTransformOrigin="0.5,0" Width="Auto" HorizontalAlignment="Stretch"/>
 
             <Grid x:Name="tabLauncher" RenderTransformOrigin="0,0.5" Width="Auto">
-                <!-- Mods Button Start -->
-                <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button x:Name="launcherButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
-                    <TextBlock Text="Mods" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
-                </Button>
+                <Border Margin="2,5,2,5" Style="{StaticResource tabButtonBorder}" BorderThickness="1">
+                    <Button x:Name="launcherButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Panel.ZIndex="0">
+                        <TextBlock Text="Mods" Style="{StaticResource basicText}" Foreground="{StaticResource tabButtonText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                    </Button>
+                </Border>
             </Grid>
-            <!-- Mods Button End -->
 
             <Grid x:Name="tabModpacks" RenderTransformOrigin="0,0.5" Width="Auto">
-                <!-- Modpack Button Start -->
-                <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button x:Name="modpacksButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
-                    <TextBlock Text="Modpacks" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
-                </Button>
+                <Border Margin="2,5,2,5" Style="{StaticResource tabButtonBorder}" BorderThickness="1">
+                    <Button x:Name="modpacksButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Panel.ZIndex="0">
+                        <TextBlock Text="Modpacks" Style="{StaticResource basicText}" Foreground="{StaticResource tabButtonText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                    </Button>
+                </Border>
             </Grid>
-            <!-- Modpack Button End -->
 
             <Grid x:Name="tabModSettings" RenderTransformOrigin="0,0.5" Width="Auto">
-                <!-- Mod Settings Button Start -->
-                <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button x:Name="modSettingsButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
-                    <TextBlock Text="Mod Settings" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
-                </Button>
+                <Border Margin="2,5,2,5" Style="{StaticResource tabButtonBorder}" BorderThickness="1">
+                    <Button x:Name="modSettingsButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Panel.ZIndex="0">
+                        <TextBlock Text="Mod Settings" Style="{StaticResource basicText}" Foreground="{StaticResource tabButtonText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                    </Button>
+                </Border>
             </Grid>
-            <!-- Mod Settings Button End -->
 
             <Grid x:Name="tabVersions" RenderTransformOrigin="0,0.5" Width="Auto">
-                <Rectangle Fill="#FF464646" Margin="5,7,0,7" Panel.ZIndex="1" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="13"/>
-                <Button x:Name="versionsButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Margin="2,5,2,5" Panel.ZIndex="0">
-                    <TextBlock Text="Versions" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
-                </Button>
+                <Border Margin="2,5,2,5" Style="{StaticResource tabButtonBorder}" BorderThickness="1">
+                    <Button x:Name="versionsButton" Click="SwitchTab" Height="40" Style="{StaticResource tabButton}" Panel.ZIndex="0">
+                        <TextBlock Text="Versions" Style="{StaticResource basicText}" Foreground="{StaticResource tabButtonText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20,0,0,0"/>
+                    </Button>
+                </Border>
             </Grid>
 
         </StackPanel>
-        <TextBlock x:Name="versionText" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" RenderTransformOrigin="0,1" Width="71" Text="1.0.0" Margin="10,0,0,0" Grid.Column="0" Grid.Row="2"/>
+        <TextBlock x:Name="versionText" Foreground="{StaticResource tabButtonText}" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextAlignment="Left" RenderTransformOrigin="0,1" Width="71" Text="1.1.0" Margin="10,0,0,0" Grid.Column="0" Grid.Row="3"/>
 
-        <Grid x:Name="tabContent" Margin="5,0,0,10" Width="Auto" RenderTransformOrigin="1,0.5" Grid.Column="1" Grid.RowSpan="2">
+        <Grid x:Name="tabContent" Margin="5,0,0,10" Width="Auto" RenderTransformOrigin="1,0.5" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="73*"></RowDefinition>
                 <RowDefinition Height="9*"></RowDefinition>
@@ -108,12 +137,12 @@
                 <TextBlock Text="Active Loader: Forge" x:Name="modLoaderText" Style="{StaticResource basicText}" VerticalAlignment="Top" Margin="0,114,0,0" Width="Auto" FontSize="22" TextAlignment="Center" RenderTransformOrigin="0.5,0"/>
                 <ScrollViewer x:Name="activeModListScroll" PreviewMouseWheel="ScrollModList" Margin="10,148,10,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
                     <StackPanel x:Name="activeModList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
-                        <Grid x:Name="templateModItem" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
+                        <Grid x:Name="templateModItem" Height="100" Background="{StaticResource hoverButtonColor}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
                             <TextBlock x:Name="templateModItemName" Text="Template Mod" Style="{StaticResource basicText}" Margin="10,10,0,34" FontSize="36" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="269"/>
                             <TextBlock x:Name="templateModItemVersion" Text="1.0.0" Style="{StaticResource basicText}" Margin="10,66,0,10" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Left" Width="148"/>
                             <TextBlock x:Name="templateModItemDescription" Text="An example mod." Style="{StaticResource basicText}" Margin="317,10,15,10" FontSize="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" HorizontalAlignment="Right"/>
 
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.ColumnSpan="2"/>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
@@ -131,7 +160,7 @@
                 <Rectangle Margin="222,98,222,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
                 <ScrollViewer x:Name="modpackListScroll" PreviewMouseWheel="ScrollModList" Margin="10,148,10,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
                     <StackPanel x:Name="modpackList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
-                        <Grid x:Name="modpack0Item" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
+                        <Grid x:Name="modpack0Item" Height="100" Background="{StaticResource hoverButtonColor}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="173*"/>
                                 <ColumnDefinition Width="45*"/>
@@ -143,7 +172,7 @@
                             </Button>
                         </Grid>
 
-                        <Grid x:Name="modpack1Item" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
+                        <Grid x:Name="modpack1Item" Height="100" Background="{StaticResource hoverButtonColor}" Margin="15,5,15,5" Width="Auto" Visibility="Hidden">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="173*"/>
                                 <ColumnDefinition Width="45*"/>
@@ -157,9 +186,9 @@
                                 <TextBlock x:Name="modpack1SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
                             </Button>
 
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
-                            <Border BorderBrush="{StaticResource selectedColor}" Margin="5, 32, 5, 10" BorderThickness="1" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" Margin="5, 32, 5, 10" BorderThickness="1" Grid.Column="2" Grid.ColumnSpan="1"/>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
@@ -178,7 +207,7 @@
                 <ScrollViewer x:Name="modSettingsListScroll" PreviewMouseWheel="ScrollModList" Margin="10,148,10,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
                     <StackPanel x:Name="modSettingsList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
                         <TextBlock x:Name="modCategoryName" Text="Example Mod Category" Style="{StaticResource basicText}" Margin="4,3,3,0" FontSize="45" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="0,0.5" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" Height="Auto" Visibility="Collapsed"/>
-                        <Grid x:Name="modSettings0Item" Height="60" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Collapsed">
+                        <Grid x:Name="modSettings0Item" Height="60" Background="{StaticResource hoverButtonColor}" Margin="15,5,15,5" Width="Auto" Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="173*"/>
                                 <ColumnDefinition Width="60"/>
@@ -190,9 +219,9 @@
                                 <Image x:Name="modSettings0Checkmark" Visibility="Hidden" Source="/img/CheckmarkDarkGray.png" Margin="10, 10, 10, 10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                             </Button>
 
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
-                            <Border BorderBrush="{StaticResource selectedColor}" Margin="5, 5, 5, 5" BorderThickness="1" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" Margin="5, 5, 5, 5" BorderThickness="1" Grid.Column="2" Grid.ColumnSpan="1"/>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
@@ -210,7 +239,7 @@
                 <Rectangle Margin="222,98,222,0" Panel.ZIndex="1" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Width="Auto" Height="13" Style="{StaticResource defaultDivider}"/>
                 <ScrollViewer x:Name="versionsListScroll" PreviewMouseWheel="ScrollModList" Margin="10,148,10,10" CanContentScroll="True" VerticalScrollBarVisibility="Hidden" RenderTransformOrigin="0.5,0.5">
                     <StackPanel x:Name="versionsList" CanVerticallyScroll="True" CanHorizontallyScroll="False" Width="Auto" HorizontalAlignment="Stretch">
-                        <Grid x:Name="version1192" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
+                        <Grid x:Name="version1192" Height="100" Background="{StaticResource hoverButtonColor}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="173*"/>
                                 <ColumnDefinition Width="45*"/>
@@ -221,12 +250,12 @@
                                 <TextBlock x:Name="version1192SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
                             </Button>
 
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
-                            <Border BorderBrush="{StaticResource selectedColor}" Margin="5,6,5,6" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" Margin="5,6,5,6" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="1"/>
                         </Grid>
-                        
-                        <Grid x:Name="version1201" Height="100" Background="{StaticResource hoverColor2}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
+
+                        <Grid x:Name="version1201" Height="100" Background="{StaticResource hoverButtonColor}" Margin="15,5,15,5" Width="Auto" Visibility="Visible">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="173*"/>
                                 <ColumnDefinition Width="45*"/>
@@ -237,34 +266,41 @@
                                 <TextBlock x:Name="version1201SelectText" Text="Select" Style="{StaticResource basicText}" FontSize="32" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" RenderTransformOrigin="1,0.5" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10, 0, 10, 0"/>
                             </Button>
 
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
-                            <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
-                            <Border BorderBrush="{StaticResource selectedColor}" Margin="5,6,5,6" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" BorderThickness="2" Grid.Column="2" Grid.ColumnSpan="1"/>
+                            <Border BorderBrush="{StaticResource selectedButtonColor}" Margin="5,6,5,6" BorderThickness="1" Grid.Column="1" Grid.ColumnSpan="1"/>
                         </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
         </Grid>
 
-        <StackPanel x:Name="loaderSwitches" Grid.Row="2" Panel.ZIndex="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch" Height="Auto" Margin="0, 4, 0, 4" RenderTransformOrigin="0.5,1" Width="Auto" Grid.Column="1">
+        <StackPanel x:Name="loaderSwitches" Grid.Row="3" Panel.ZIndex="50" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch" Height="Auto" Margin="0, 4, 0, 4" RenderTransformOrigin="0.5,1" Width="Auto" Grid.Column="1">
             <Grid Margin="10, 0, 10, 0">
-                <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource loaderButton}">
-                    <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="24" Margin="20, 0, 20, 0"/>
+                <Button x:Name="forgeSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Style="{StaticResource tabButton}">
+                    <TextBlock Text="Forge" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20, 0, 20, 0" Foreground="White"/>
                 </Button>
-                <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                <Border BorderBrush="{StaticResource borderBaseColor}" BorderThickness="1" Grid.ColumnSpan="2"/>
             </Grid>
 
             <Grid Margin="10, 0, 10, 0">
-                <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Height="Auto" Style="{StaticResource loaderButton}">
-                    <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="24" Margin="20, 0, 20, 0"/>
+                <Button x:Name="fabricSwitchButton" Click="SwitchLoader" HorizontalAlignment="Center" Style="{StaticResource tabButton}">
+                    <TextBlock Text="Fabric" Style="{StaticResource basicText}" RenderTransformOrigin="0,0.5" VerticalAlignment="Center" FontSize="20" Margin="20, 0, 20, 0" Foreground="White"/>
                 </Button>
-                <Border BorderBrush="{StaticResource selectedColor2}" BorderThickness="2" Grid.ColumnSpan="2"/>
+                <Border BorderBrush="{StaticResource borderBaseColor}" BorderThickness="1" Grid.ColumnSpan="2"/>
             </Grid>
         </StackPanel>
 
-        <Grid x:Name="downloadBar" Grid.ColumnSpan="2" Height="0" Margin="0,0,0,0" Background="{StaticResource selectedColor2}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Stretch" Grid.RowSpan="1">
-            <TextBlock x:Name="progressbarText" Height="41" Margin="12,0,12,0" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="24" VerticalAlignment="Top" TextAlignment="Left" RenderTransformOrigin="0,1" Width="Auto" Text="Loading..."/>
-            <ProgressBar x:Name="downloadProgressBar" Margin="10,40,10,10" IsIndeterminate="True" RenderTransformOrigin="0.5,1" Background="{StaticResource baseColor2}" Foreground="#FF7F7F7F" BorderBrush="{x:Null}"/>
+        <Grid x:Name="downloadBar" Grid.ColumnSpan="2" Height="0" Margin="0,0,0,0" Background="{DynamicResource hoverButtonColor}" Grid.Row="4" Grid.Column="0" VerticalAlignment="Stretch" Grid.RowSpan="1">
+            <TextBlock x:Name="progressbarText" Style="{StaticResource basicText}" Height="41" Margin="12,0,12,0" Padding="5,5,6,5" FontFamily="Yu Gothic UI Semibold" FontSize="24" VerticalAlignment="Top" TextAlignment="Left" RenderTransformOrigin="0,1" Width="Auto" Text="Loading..."/>
+            <ProgressBar x:Name="downloadProgressBar" Margin="10,40,10,10" RenderTransformOrigin="0.5,1" Value="16" Foreground="White">
+                <ProgressBar.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#59000000"/>
+                        <GradientStop Color="#3F000000" Offset="1"/>
+                    </RadialGradientBrush>
+                </ProgressBar.Background>
+            </ProgressBar>
         </Grid>
     </Grid>
 </Window>
